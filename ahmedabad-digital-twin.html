@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AMDAVAD TWIN — Ahmedabad City Operations Digital Twin</title>
+<title>AMDAVAD TWIN — Ahmedabad Metro Region Digital Twin</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -18,8 +18,6 @@ html,body{height:100%;overflow:hidden}
 body{background:var(--ink);color:var(--bone);font-family:'Inter',sans-serif;font-size:13px}
 #canvas-wrap{position:fixed;inset:0}
 #canvas-wrap canvas{display:block}
-
-/* ---------- top bar ---------- */
 #topbar{position:fixed;top:0;left:0;right:0;height:52px;display:flex;align-items:center;
   gap:18px;padding:0 18px;background:linear-gradient(180deg,rgba(21,17,12,.96),rgba(21,17,12,.82) 70%,transparent);
   z-index:20;pointer-events:none}
@@ -36,8 +34,6 @@ body{background:var(--ink);color:var(--bone);font-family:'Inter',sans-serif;font
 #clock small{color:var(--muted);margin-left:6px;font-size:10px}
 .demo-tag{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink);background:var(--saffron);
   padding:3px 8px;border-radius:3px;letter-spacing:.12em;font-weight:700}
-
-/* ---------- panels ---------- */
 .panel{position:fixed;top:64px;bottom:46px;width:288px;background:rgba(30,24,18,.93);
   border:1px solid var(--line);border-radius:10px;z-index:15;display:flex;flex-direction:column;
   backdrop-filter:blur(8px);overflow:hidden}
@@ -50,8 +46,6 @@ body{background:var(--ink);color:var(--bone);font-family:'Inter',sans-serif;font
 .panel-body{flex:1;overflow-y:auto;padding:12px 14px}
 .panel-body::-webkit-scrollbar{width:4px}
 .panel-body::-webkit-scrollbar-thumb{background:var(--line);border-radius:2px}
-
-/* KPIs */
 .kpi-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px}
 .kpi{background:var(--panel2);border:1px solid var(--line);border-radius:7px;padding:9px 10px}
 .kpi label{display:block;font-family:'JetBrains Mono',monospace;font-size:8.5px;color:var(--muted);
@@ -59,12 +53,9 @@ body{background:var(--ink);color:var(--bone);font-family:'Inter',sans-serif;font
 .kpi .val{font-family:'JetBrains Mono',monospace;font-size:17px;font-weight:700;color:var(--bone)}
 .kpi .val small{font-size:10px;color:var(--muted);font-weight:400;margin-left:2px}
 .kpi.accent .val{color:var(--saffron)}
-
 .sec-label{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--muted);
   letter-spacing:.16em;text-transform:uppercase;margin:14px 0 8px;display:flex;align-items:center;gap:8px}
 .sec-label::after{content:'';flex:1;height:1px;background:var(--line)}
-
-/* layer toggles */
 .layer{display:flex;align-items:center;gap:10px;padding:8px 10px;border:1px solid var(--line);
   border-radius:7px;margin-bottom:6px;cursor:pointer;transition:all .15s;background:transparent;user-select:none}
 .layer:hover{background:var(--panel2)}
@@ -75,16 +66,12 @@ body{background:var(--ink);color:var(--bone);font-family:'Inter',sans-serif;font
 .layer.on .name{color:var(--bone)}
 .layer .key{margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--muted);
   border:1px solid var(--line);border-radius:3px;padding:1px 5px}
-
-/* time slider */
 .time-row{display:flex;align-items:center;gap:10px;margin-bottom:4px}
 .time-row input[type=range]{flex:1;-webkit-appearance:none;height:3px;background:var(--line);border-radius:2px;outline:none}
 .time-row input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:13px;height:13px;
   border-radius:50%;background:var(--saffron);cursor:pointer;border:2px solid var(--ink)}
 #time-label{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--saffron);width:52px;text-align:right}
 .hint{font-size:10px;color:var(--muted);line-height:1.5;margin-top:10px}
-
-/* zone detail */
 #zone-empty{color:var(--muted);font-size:11.5px;line-height:1.6;padding:6px 2px}
 #zone-detail{display:none}
 #zone-detail h3{font-family:'Fraunces',serif;font-size:18px;font-weight:600;margin-bottom:2px}
@@ -96,13 +83,10 @@ body{background:var(--ink);color:var(--bone);font-family:'Inter',sans-serif;font
 .badge{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:9px;padding:2px 7px;
   border-radius:3px;letter-spacing:.08em;font-weight:700}
 #zone-note{font-size:11px;color:var(--muted);line-height:1.55;margin-top:10px}
-
-/* assistant */
 #chat-log{display:flex;flex-direction:column;gap:8px;margin-bottom:10px}
 .msg{border-radius:8px;padding:8px 11px;font-size:11.5px;line-height:1.55;max-width:95%}
 .msg.user{background:var(--panel2);border:1px solid var(--line);align-self:flex-end;color:var(--bone)}
 .msg.ai{background:rgba(108,124,239,.10);border:1px solid rgba(108,124,239,.3);align-self:flex-start}
-.msg.ai b{color:var(--saffron)}
 .chat-input-row{display:flex;gap:6px;padding:10px 14px;border-top:1px solid var(--line)}
 .chat-input-row input{flex:1;background:var(--panel2);border:1px solid var(--line);border-radius:7px;
   padding:8px 10px;color:var(--bone);font-family:'Inter',sans-serif;font-size:12px;outline:none}
@@ -114,22 +98,56 @@ body{background:var(--ink);color:var(--bone);font-family:'Inter',sans-serif;font
 .chip{font-size:10px;color:var(--muted);border:1px solid var(--line);border-radius:12px;
   padding:3px 9px;cursor:pointer;transition:all .15s}
 .chip:hover{color:var(--saffron);border-color:var(--saffron)}
-
-/* ticker */
 #ticker{position:fixed;bottom:0;left:0;right:0;height:34px;background:rgba(21,17,12,.94);
   border-top:1px solid var(--line);display:flex;align-items:center;z-index:20;overflow:hidden}
 #ticker .tag{flex-shrink:0;font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink);
   background:var(--indigo);font-weight:700;letter-spacing:.12em;padding:3px 10px;margin:0 12px;border-radius:3px}
 #ticker-text{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);white-space:nowrap}
 #ticker-text b{color:var(--bone);font-weight:500}
-
-/* tooltip */
 #tooltip{position:fixed;pointer-events:none;background:var(--panel);border:1px solid var(--line);
   border-radius:6px;padding:6px 10px;font-family:'JetBrains Mono',monospace;font-size:11px;
   color:var(--bone);z-index:30;display:none;box-shadow:0 4px 16px rgba(0,0,0,.5)}
 #tooltip small{display:block;color:var(--muted);font-size:9px;letter-spacing:.1em;text-transform:uppercase}
-
-/* mobile */
+/* zoom controls */
+#zoomui{position:fixed;right:346px;bottom:46px;display:flex;flex-direction:column;gap:6px;z-index:18}
+#zoomui button{width:36px;height:36px;background:rgba(30,24,18,.93);border:1px solid var(--line);
+  color:var(--bone);border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:17px;
+  cursor:pointer;transition:all .15s;line-height:1}
+#zoomui button:hover{border-color:var(--saffron);color:var(--saffron)}
+#zoomui button:focus-visible{outline:2px solid var(--saffron)}
+/* settings */
+#gear{background:none;border:1px solid var(--line);color:var(--muted);border-radius:7px;
+  width:30px;height:30px;cursor:pointer;font-size:14px;line-height:1;transition:all .15s}
+#gear:hover{color:var(--saffron);border-color:var(--saffron)}
+#settings-overlay{position:fixed;inset:0;background:rgba(10,8,5,.6);z-index:40;display:none;
+  align-items:center;justify-content:center;backdrop-filter:blur(3px)}
+#settings-overlay.open{display:flex}
+#settings{width:min(560px,calc(100vw - 28px));max-height:min(640px,calc(100vh - 40px));
+  background:var(--panel);border:1px solid var(--line);border-radius:12px;display:flex;flex-direction:column;overflow:hidden}
+#settings .s-head{display:flex;align-items:center;padding:14px 18px;border-bottom:1px solid var(--line)}
+#settings .s-head h2{font-family:'Fraunces',serif;font-size:17px;font-weight:600}
+#settings .s-head p{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;margin-top:2px}
+#s-close{margin-left:auto;background:none;border:1px solid var(--line);color:var(--muted);border-radius:6px;
+  width:28px;height:28px;cursor:pointer;font-size:14px}
+#s-close:hover{color:var(--bone)}
+.s-body{flex:1;overflow-y:auto;padding:14px 18px}
+.s-body::-webkit-scrollbar{width:4px}.s-body::-webkit-scrollbar-thumb{background:var(--line)}
+.veh-section{border:1px solid var(--line);border-radius:9px;padding:12px 14px;margin-bottom:10px;background:var(--panel2)}
+.veh-section h4{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--saffron);margin-bottom:9px;display:flex;align-items:center;gap:8px}
+.veh-section h4 small{color:var(--muted);font-size:9px;letter-spacing:.06em;font-weight:400;text-transform:none}
+.opt-row{display:flex;align-items:center;flex-wrap:wrap;gap:6px;margin-bottom:8px}
+.opt-row:last-child{margin-bottom:0}
+.opt-row label{font-size:10px;color:var(--muted);width:52px;flex-shrink:0}
+.preset{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);border:1px solid var(--line);
+  border-radius:6px;padding:4px 10px;cursor:pointer;transition:all .15s}
+.preset.on{color:var(--ink);background:var(--saffron);border-color:var(--saffron);font-weight:700}
+.preset:hover:not(.on){color:var(--bone);border-color:var(--muted)}
+.swatch{width:20px;height:20px;border-radius:5px;border:2px solid transparent;cursor:pointer;transition:transform .1s}
+.swatch:hover{transform:scale(1.15)}
+.swatch.on{border-color:var(--bone)}
+.swatch.mixed{background:conic-gradient(#E8E4DA,#7A2E2A,#33507A,#3A3A3C,#E8E4DA);font-size:0}
+.s-note{font-size:10px;color:var(--muted);line-height:1.5;margin-top:4px}
 .panel-toggle{display:none}
 @media (max-width:900px){
   .panel{display:none;width:calc(100vw - 28px);top:58px}
@@ -140,6 +158,7 @@ body{background:var(--ink);color:var(--bone);font-family:'Inter',sans-serif;font
     border-radius:8px;padding:8px 14px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.1em}
   .brand span{display:none}
   #topbar{gap:10px}
+  #zoomui{right:14px;bottom:88px}
 }
 @media (prefers-reduced-motion:reduce){.sync .dot{animation:none}}
 </style>
@@ -149,53 +168,61 @@ body{background:var(--ink);color:var(--bone);font-family:'Inter',sans-serif;font
 <div id="canvas-wrap"></div>
 
 <div id="topbar">
-  <div class="brand"><h1>AMDAVAD<em>·</em>TWIN</h1><span>city operations twin</span></div>
-  <div class="sync"><div class="dot"></div><span id="sync-label">twin sync live</span></div>
+  <div class="brand"><h1>AMDAVAD<em>·</em>TWIN</h1><span>metro region twin · v2</span></div>
+  <div class="sync"><div class="dot"></div><span>twin sync live</span></div>
   <div id="clock">--:--:--<small>IST</small></div>
+  <button id="gear" aria-label="Vehicle settings" title="Vehicle settings">⚙</button>
   <div class="demo-tag">SIMULATED DATA</div>
 </div>
 
+<div id="settings-overlay">
+  <div id="settings" role="dialog" aria-label="Vehicle settings">
+    <div class="s-head">
+      <div><h2>Vehicle Garage</h2><p>styles apply to every vehicle of that type, instantly</p></div>
+      <button id="s-close" aria-label="Close">✕</button>
+    </div>
+    <div class="s-body" id="s-body"></div>
+  </div>
+</div>
+
 <aside class="panel" id="left">
-  <div class="panel-head"><h2>City Pulse</h2><p>Ahmedabad Municipal Region</p></div>
+  <div class="panel-head"><h2>City Pulse</h2><p>AMC + AUDA region · 30 districts</p></div>
   <div class="panel-body">
     <div class="kpi-grid">
-      <div class="kpi accent"><label>Metro Population</label><div class="val">8.65<small>M</small></div></div>
+      <div class="kpi accent"><label>Region Population</label><div class="val">8.9<small>M</small></div></div>
       <div class="kpi"><label>City AQI (avg)</label><div class="val" id="kpi-aqi">—</div></div>
       <div class="kpi"><label>Traffic Index</label><div class="val" id="kpi-traffic">—</div></div>
       <div class="kpi"><label>Grid Load</label><div class="val" id="kpi-grid">—<small>MW</small></div></div>
       <div class="kpi"><label>Water Supply</label><div class="val">1,450<small>MLD</small></div></div>
-      <div class="kpi"><label>BRTS Fleet Active</label><div class="val" id="kpi-brts">—</div></div>
+      <div class="kpi"><label>Vehicles on Road</label><div class="val" id="kpi-veh">—</div></div>
     </div>
-
     <div class="sec-label">Data Layers</div>
     <div id="layers"></div>
-
     <div class="sec-label">Solar Time</div>
     <div class="time-row">
       <input type="range" id="time-slider" min="0" max="24" step="0.25" value="18.5">
       <div id="time-label">18:30</div>
     </div>
-    <div class="hint">Drag to move the sun over the city. Traffic density, grid load and lighting respond to time of day.</div>
-    <div class="hint" style="margin-top:14px">Left-drag to orbit · scroll to zoom · right-drag to pan · click a district to inspect it.</div>
+    <div class="hint">Drag the sun across the day. Windows light up after dusk; traffic mix and grid load follow the clock.</div>
+    <div class="hint" style="margin-top:12px">Left-drag orbit · right-drag or ✋ mode to slide the map (with glide) · arrows pan · scroll or ＋/− zoom · click a district. Zoom to street level for autos, scooters, trucks and BRTS buses.</div>
   </div>
 </aside>
 
 <aside class="panel" id="right">
-  <div class="panel-head"><h2 id="right-title">District Inspector</h2><p id="right-sub">select a district on the map</p></div>
+  <div class="panel-head"><h2>District Inspector</h2><p id="right-sub">select a district on the map</p></div>
   <div class="panel-body">
-    <div id="zone-empty">Click any district — the walled old city east of the Sabarmati, the western corridors, Naroda's industrial belt — to pull its live twin state.</div>
+    <div id="zone-empty">Click any district — from the walled city pols to Sanand's auto belt, Bopal–Shela's new suburbs, or the Vatva and Naroda industrial estates — to pull its twin state.</div>
     <div id="zone-detail">
       <h3 id="zd-name"></h3>
       <div class="zone-type" id="zd-type"></div>
       <div id="zd-stats"></div>
       <div id="zone-note"></div>
     </div>
-
     <div class="sec-label" style="margin-top:18px">Ask the Twin</div>
     <div class="chip-row">
       <div class="chip" data-q="Which district needs attention right now and why?">Where should ops focus?</div>
-      <div class="chip" data-q="Compare air quality east vs west of the Sabarmati.">AQI east vs west</div>
-      <div class="chip" data-q="Summarize the current state of the city in 3 lines.">City brief</div>
+      <div class="chip" data-q="Compare air quality: industrial east vs residential west vs periphery villages.">AQI gradient</div>
+      <div class="chip" data-q="Summarize the current state of the metro region in 3 lines.">Region brief</div>
     </div>
     <div id="chat-log"></div>
   </div>
@@ -204,6 +231,12 @@ body{background:var(--ink);color:var(--bone);font-family:'Inter',sans-serif;font
     <button id="chat-send">ASK</button>
   </div>
 </aside>
+
+<div id="zoomui">
+  <button id="z-in" aria-label="Zoom in">＋</button>
+  <button id="z-out" aria-label="Zoom out">−</button>
+  <button id="z-home" aria-label="Reset view" style="font-size:13px">⌂</button>
+</div>
 
 <div class="panel-toggle">
   <button id="tg-left">PULSE</button>
@@ -215,454 +248,741 @@ body{background:var(--ink);color:var(--bone);font-family:'Inter',sans-serif;font
 <div id="labels" style="position:fixed;inset:0;pointer-events:none;z-index:10"></div>
 
 <script>
-/* =========================================================
-   AMDAVAD·TWIN — stylized digital twin of Ahmedabad
-   Simulated data calibrated to plausible ranges. Demo-grade.
-   ========================================================= */
+/* ============================================================
+   AMDAVAD·TWIN v2 — Ahmedabad metro region, stylized-realistic
+   30 districts incl. periphery villages · simulated data
+   ============================================================ */
 const $=s=>document.querySelector(s);
+let seed=20260707; const rnd=()=>{seed=(seed*1664525+1013904223)>>>0;return seed/4294967296;};
 
-/* ---------- district data (simulated, plausible) ---------- */
+/* ---------- districts: core + periphery villages ---------- */
+/* kind: pol(old dense) apt(mid-rise) tower ind(industrial) vil(village) mix */
+const Z=(id,name,type,cx,cz,r,kind,dens,hmax,pop,aqi,grid,traffic,water,note,shape)=>({id,name,type,cx,cz,r,kind,dens,hmax,pop,aqi,grid,traffic,water,note,shape:shape||'circ'});
 const ZONES=[
- {id:'oldcity', name:'Old City · Bhadra', type:'UNESCO heritage core', cx:12, cz:-2, r:42, shape:'circ',
-  density:.9, hmin:1.5, hmax:5, tint:0xB99A6B, pop:'6.1 L', aqi:104, grid:118, traffic:.86, water:'92%',
-  note:'Walled city pols — dense low-rise fabric, pedestrian congestion around Manek Chowk peaks after 19:00. Heritage load limits on grid retrofit.'},
- {id:'kalupur', name:'Kalupur · Saraspur', type:'transit & wholesale', cx:52, cz:-18, r:30, shape:'circ',
-  density:.85, hmin:2, hmax:7, tint:0xA98F63, pop:'4.3 L', aqi:117, grid:96, traffic:.9, water:'88%',
-  note:'Railway station catchment. Freight movement collides with passenger flow at Sarangpur bridgehead through the evening.'},
- {id:'maninagar', name:'Maninagar', type:'residential south-east', cx:58, cz:82, r:34, shape:'circ',
-  density:.8, hmin:2, hmax:9, tint:0x9E8B66, pop:'5.2 L', aqi:111, grid:102, traffic:.72, water:'90%',
-  note:'Dense residential belt around Kankaria. Lakefront footfall spikes on weekends; parking overflow onto arterials.'},
- {id:'naroda', name:'Naroda GIDC', type:'industrial estate', cx:98, cz:-62, r:40, shape:'rect',
-  density:.35, hmin:2, hmax:5, big:true, tint:0x8A7A5C, pop:'2.1 L', aqi:146, grid:210, traffic:.66, water:'81%',
-  note:'Heaviest particulate load in the model. Two units flagged for stack readings above consent limits this week (simulated CPCB feed).'},
- {id:'motera', name:'Motera · Sabarmati', type:'stadium & riverfront north', cx:2, cz:-148, r:34, shape:'circ',
-  density:.5, hmin:2, hmax:10, tint:0x9C8E70, pop:'2.8 L', aqi:86, grid:74, traffic:.5, water:'94%',
-  note:'Event-day surge district. On match days traffic index here doubles and metro NS line runs at crush load.'},
- {id:'airport', name:'Hansol · SVPI Airport', type:'aviation & logistics', cx:64, cz:-122, r:30, shape:'rect',
-  density:.15, hmin:1.5, hmax:4, big:true, tint:0x8F8168, pop:'0.9 L', aqi:97, grid:88, traffic:.45, water:'96%',
-  note:'Cargo apron expansion underway. Airside grid feed is on a dedicated 66kV line — isolated from city load-shedding logic.'},
- {id:'ashram', name:'Ashram Road', type:'CBD spine · west bank', cx:-58, cz:-8, r:26, shape:'circ',
-  density:.75, hmin:4, hmax:14, tint:0x93875F, pop:'2.4 L', aqi:92, grid:132, traffic:.88, water:'95%',
-  note:'Office corridor along the riverfront. Peak-hour saturation at Income Tax and Usmanpura junctions; BRTS priority active.'},
- {id:'navrangpura', name:'Navrangpura · CG Road', type:'commercial west', cx:-88, cz:-2, r:32, shape:'circ',
-  density:.78, hmin:3, hmax:12, tint:0x9A8C64, pop:'3.6 L', aqi:88, grid:121, traffic:.8, water:'96%',
-  note:'Retail and university belt. Evening leisure traffic holds CG Road near capacity until 22:30.'},
- {id:'paldi', name:'Paldi · Vasna', type:'residential west bank', cx:-58, cz:62, r:30, shape:'circ',
-  density:.72, hmin:2.5, hmax:9, tint:0xA08E68, pop:'3.9 L', aqi:90, grid:89, traffic:.62, water:'93%',
-  note:'Stable residential load profile. VS Hospital node is the district anchor for the emergency-response layer.'},
- {id:'vastrapur', name:'Vastrapur', type:'lakefront residential', cx:-122, cz:22, r:26, shape:'circ',
-  density:.65, hmin:3, hmax:12, tint:0x998C6A, pop:'2.7 L', aqi:79, grid:84, traffic:.58, water:'97%',
-  note:'Best air quality on the east–west gradient after Bodakdev. Lakefront sensors report stable PM2.5 under monsoon flow.'},
- {id:'bodakdev', name:'Bodakdev · Thaltej', type:'corporate west', cx:-148, cz:-8, r:30, shape:'circ',
-  density:.6, hmin:6, hmax:22, tint:0x8E856B, pop:'2.2 L', aqi:77, grid:158, traffic:.76, water:'97%',
-  note:'Glass-tower corridor. Highest per-capita grid draw in the model — HVAC load dominates the afternoon curve.'},
- {id:'sghwy', name:'SG Highway', type:'growth corridor', cx:-178, cz:-12, r:34, shape:'rect', tall:true,
-  density:.45, hmin:8, hmax:30, tint:0x857E6A, pop:'3.1 L', aqi:81, grid:176, traffic:.82, water:'95%',
-  note:'North–south hypergrowth strip. Construction dust is the main AQI driver here, not vehicular load.'},
- {id:'gota', name:'Gota · Chandkheda', type:'residential north-west', cx:-118, cz:-108, r:34, shape:'circ',
-  density:.6, hmin:3, hmax:14, tint:0x94886A, pop:'4.1 L', aqi:85, grid:97, traffic:.6, water:'92%',
-  note:'Fastest-densifying pin codes in the metro area. Water network pressure drops 8% at morning peak — augmentation tendered.'},
+ Z('oldcity','Old City · Bhadra','UNESCO heritage core',12,-2,40,'pol',.92,5,'6.1 L',104,118,.86,'92%','Walled-city pols — courtyard houses, timber fronts. Pedestrian crush at Manek Chowk after 19:00; heritage rules cap grid retrofit.'),
+ Z('kalupur','Kalupur · Saraspur','rail & wholesale',52,-18,26,'pol',.85,7,'4.3 L',117,96,.9,'88%','Station catchment. Freight and passenger flows collide at Sarangpur bridgehead every evening.'),
+ Z('bapunagar','Bapunagar','residential east',88,2,24,'apt',.8,8,'3.4 L',112,88,.7,'87%','Former mill-land housing. Two-wheeler ownership highest in the model — bikes dominate the local flow.'),
+ Z('nikol','Nikol','residential east',128,-8,26,'apt',.75,10,'3.8 L',108,92,.64,'85%','Post-2010 growth grid. Water network still catching up with tower permissions.'),
+ Z('vastral','Vastral','metro terminus east',138,28,24,'apt',.72,10,'2.9 L',106,84,.6,'86%','EW metro terminus. Park-and-ride demand exceeds capacity by ~2x on weekdays.'),
+ Z('odhav','Odhav GIDC','industrial estate',122,-45,24,'ind',.5,5,'1.8 L',141,168,.6,'80%','Engineering and casting units. Night-shift load keeps feeders warm past 02:00.'),
+ Z('naroda','Naroda GIDC','industrial estate',100,-78,30,'ind',.5,5,'2.1 L',146,210,.66,'81%','Heaviest particulate source in the model. Two units flagged on simulated stack readings this week.'),
+ Z('kathwada','Kathwada','village / logistics',165,-75,22,'vil',.55,3,'0.6 L',96,42,.4,'78%','Village core with warehouse sprawl along the ring road. Farm plots still active east of the bypass.'),
+ Z('airport','Hansol · SVPI Airport','aviation & cargo',66,-122,26,'ind',.18,4,'0.9 L',97,88,.45,'96%','Cargo apron expansion underway. Airside 66kV feed is isolated from city load-shedding logic.','rect'),
+ Z('maninagar','Maninagar','residential SE',58,84,30,'apt',.8,9,'5.2 L',111,102,.72,'90%','Dense belt around Kankaria. Weekend lakefront footfall overflows parking onto arterials.'),
+ Z('ramol','Ramol · Hathijan','residential SE edge',112,66,24,'apt',.68,8,'2.6 L',115,74,.55,'82%','Ring-road frontier housing. Auto-rickshaw share of trips ~38%, highest in the region.'),
+ Z('vatva','Vatva GIDC','chemical estate',95,130,30,'ind',.5,5,'2.4 L',152,196,.62,'79%','Chemical cluster. CETP inflow running near capacity; odour complaints tracked from Isanpur.','rect'),
+ Z('narol','Narol','textile & transit south',52,128,24,'mix',.7,6,'2.8 L',128,104,.68,'83%','Textile processing plus the Narol-Aslali truck corridor. PM10 from road dust dominates.'),
+ Z('motera','Motera · Sabarmati','stadium north',0,-150,30,'mix',.55,11,'2.8 L',86,74,.5,'94%','Event-surge district. Match days double the traffic index and push metro NS to crush load.'),
+ Z('chandkheda','Chandkheda','residential north',-70,-162,30,'apt',.68,12,'3.3 L',84,86,.56,'91%','GIFT-commuter belt. Grid draw shifting evening-ward as WFH fades.'),
+ Z('zundal','Zundal · Adalaj','village north',-55,-238,26,'vil',.5,3,'0.8 L',72,38,.35,'88%','Village pair on the Gandhinagar highway. Adalaj ni Vav (stepwell) drives weekend heritage footfall.'),
+ Z('ranip','Ranip','residential NW',-45,-88,24,'apt',.72,9,'2.9 L',94,78,.58,'90%','Mature housing near the river. NS metro has cut local auto trips ~12% (simulated).'),
+ Z('gota','Gota','residential NW',-150,-98,30,'apt',.66,14,'4.1 L',85,97,.6,'92%','Fastest-densifying pin codes. Morning water pressure dips 8%; augmentation tendered.'),
+ Z('sghwy','SG Highway · Thaltej','growth corridor',-182,-12,30,'tower',.5,30,'3.1 L',81,176,.82,'95%','North–south hypergrowth strip. Construction dust, not tailpipes, drives local AQI.','rect'),
+ Z('bodakdev','Bodakdev','corporate west',-150,-6,26,'tower',.6,22,'2.2 L',77,158,.76,'97%','Glass-tower corridor — highest per-capita grid draw; afternoon HVAC dominates.'),
+ Z('vastrapur','Vastrapur','lakefront west',-122,22,24,'apt',.68,12,'2.7 L',79,84,.58,'97%','Lakefront sensors report the steadiest PM2.5 west of the river under monsoon flow.'),
+ Z('navrangpura','Navrangpura · CG Rd','commercial west',-88,-2,30,'apt',.78,12,'3.6 L',88,121,.8,'96%','Retail + university belt. Evening leisure traffic holds CG Road near capacity till 22:30.'),
+ Z('ashram','Ashram Road','CBD spine',-58,-8,24,'apt',.75,14,'2.4 L',92,132,.88,'95%','Riverfront office spine. BRTS signal priority active at Income Tax and Usmanpura.'),
+ Z('paldi','Paldi · Vasna','residential west bank',-58,62,28,'apt',.72,9,'3.9 L',90,89,.62,'93%','Stable residential profile. VS Hospital anchors the emergency-response layer.'),
+ Z('vejalpur','Vejalpur','residential SW',-95,68,22,'apt',.7,10,'2.7 L',89,80,.56,'92%','Infill between Paldi and Sarkhej. School-hour congestion is the daily signature.'),
+ Z('juhapura','Juhapura','dense SW',-72,98,24,'pol',.85,6,'4.6 L',102,84,.66,'84%','Among India\u2019s largest urban clusters of its kind — dense low-rise, thin trunk services. Water coverage priority zone.'),
+ Z('sarkhej','Sarkhej','heritage / logistics SW',-105,128,26,'mix',.6,6,'2.2 L',98,72,.6,'86%','Sarkhej Roza precinct beside the truck-heavy Sarkhej junction — heritage buffer vs logistics pressure.'),
+ Z('bopal','Bopal · South Bopal','new suburb west',-205,55,28,'apt',.62,14,'2.9 L',80,94,.58,'90%','AUDA\u2019s poster suburb — gated towers over former village land. Village core still visible at Bopal gam.'),
+ Z('shela','Shela · Ghuma','village → suburb',-242,92,26,'vil',.5,8,'1.4 L',70,52,.45,'87%','Transition belt: farm plots, village cores and new schemes interleaved. Darkest night sky in the model.'),
+ Z('sanand','Sanand GIDC','auto belt west',-300,118,30,'ind',.45,6,'1.6 L',118,182,.55,'82%','Auto and FMCG manufacturing cluster with the old town beside it. Shift-change traffic pulses at 06:00 / 14:00 / 22:00.','rect'),
 ];
 
-/* ---------- three.js scene ---------- */
+/* ---------- scene ---------- */
 const wrap=$('#canvas-wrap');
 const renderer=new THREE.WebGLRenderer({antialias:true});
 renderer.setPixelRatio(Math.min(devicePixelRatio,2));
 renderer.setSize(innerWidth,innerHeight);
 wrap.appendChild(renderer.domElement);
-
 const scene=new THREE.Scene();
-scene.fog=new THREE.Fog(0x15110C,300,720);
-const camera=new THREE.PerspectiveCamera(46,innerWidth/innerHeight,1,2000);
-
-/* custom orbit state */
-const ctrl={target:new THREE.Vector3(-20,0,-15),theta:Math.PI*0.28,phi:Math.PI*0.32,radius:300};
-function applyCam(){
-  const {target,theta,phi,radius}=ctrl;
-  camera.position.set(
-    target.x+radius*Math.sin(phi)*Math.sin(theta),
-    target.y+radius*Math.cos(phi),
-    target.z+radius*Math.sin(phi)*Math.cos(theta));
-  camera.lookAt(target);
-}
+scene.fog=new THREE.Fog(0x15110C,420,1250);
+const camera=new THREE.PerspectiveCamera(46,innerWidth/innerHeight,0.5,3000);
+const ctrl={target:new THREE.Vector3(-40,0,-10),theta:Math.PI*0.28,phi:Math.PI*0.33,radius:430};
+function applyCam(){const{target,theta,phi,radius}=ctrl;
+  camera.position.set(target.x+radius*Math.sin(phi)*Math.sin(theta),
+    target.y+radius*Math.cos(phi), target.z+radius*Math.sin(phi)*Math.cos(theta));
+  camera.lookAt(target);}
 applyCam();
-
-/* lights */
 const hemi=new THREE.HemisphereLight(0xEDE4D3,0x15110C,0.55); scene.add(hemi);
 const sun=new THREE.DirectionalLight(0xFFE3B0,0.9); sun.position.set(120,180,60); scene.add(sun);
-const riverGlow=new THREE.PointLight(0x6C7CEF,0.7,260); riverGlow.position.set(-28,18,10); scene.add(riverGlow);
+const riverGlow=new THREE.PointLight(0x6C7CEF,0.7,300); riverGlow.position.set(-28,20,10); scene.add(riverGlow);
 
-/* ground */
-const ground=new THREE.Mesh(new THREE.PlaneGeometry(1400,1400),
-  new THREE.MeshLambertMaterial({color:0x1B1610}));
-ground.rotation.x=-Math.PI/2; ground.position.y=-0.05; scene.add(ground);
-
-/* ---------- the Sabarmati (signature element) ---------- */
-const riverPath=new THREE.CatmullRomCurve3([
-  new THREE.Vector3(-4,0,-230), new THREE.Vector3(-10,0,-140),
-  new THREE.Vector3(-22,0,-60), new THREE.Vector3(-28,0,0),
-  new THREE.Vector3(-34,0,70),  new THREE.Vector3(-28,0,150),
-  new THREE.Vector3(-20,0,230)]);
-function riverX(z){ // approx x of river centerline at depth z
-  let best=riverPath.getPoint(0),bd=1e9;
-  for(let i=0;i<=60;i++){const p=riverPath.getPoint(i/60);const d=Math.abs(p.z-z);if(d<bd){bd=d;best=p;}}
-  return best.x;
+/* ---------- ground with plot texture ---------- */
+function groundTex(){
+  const c=document.createElement('canvas');c.width=c.height=512;const g=c.getContext('2d');
+  g.fillStyle='#1B1610';g.fillRect(0,0,512,512);
+  for(let i=0;i<2600;i++){g.fillStyle=`rgba(${30+Math.random()*26|0},${25+Math.random()*20|0},${16+Math.random()*12|0},.5)`;
+    g.fillRect(Math.random()*512,Math.random()*512,2+Math.random()*5,2+Math.random()*5);}
+  g.strokeStyle='rgba(58,49,35,.35)';g.lineWidth=1;
+  for(let i=0;i<14;i++){const p=Math.random()*512;g.beginPath();g.moveTo(p,0);g.lineTo(p+(Math.random()-0.5)*60,512);g.stroke();
+    const q=Math.random()*512;g.beginPath();g.moveTo(0,q);g.lineTo(512,q+(Math.random()-0.5)*60);g.stroke();}
+  const t=new THREE.CanvasTexture(c);t.wrapS=t.wrapT=THREE.RepeatWrapping;t.repeat.set(10,10);return t;
 }
-function ribbon(width,y,color,opacity){
-  const N=90, pos=[], idx=[];
-  for(let i=0;i<=N;i++){
-    const t=i/N, p=riverPath.getPoint(t), tan=riverPath.getTangent(t);
-    const nx=-tan.z, nz=tan.x, w=width/2;
-    pos.push(p.x+nx*w,y,p.z+nz*w, p.x-nx*w,y,p.z-nz*w);
-    if(i<N){const a=i*2;idx.push(a,a+1,a+2, a+1,a+3,a+2);}
+const ground=new THREE.Mesh(new THREE.PlaneGeometry(2200,2200),
+  new THREE.MeshLambertMaterial({map:groundTex(),color:0xffffff}));
+ground.rotation.x=-Math.PI/2;ground.position.y=-0.05;scene.add(ground);
+
+/* ---------- farmland patchwork on the periphery ---------- */
+{
+  const N=300, geo=new THREE.PlaneGeometry(1,1); geo.rotateX(-Math.PI/2);
+  const im=new THREE.InstancedMesh(geo,new THREE.MeshLambertMaterial({color:0xffffff}),N);
+  const M=new THREE.Matrix4(),Q=new THREE.Quaternion(),E=new THREE.Euler(),S=new THREE.Vector3(),P=new THREE.Vector3(),C=new THREE.Color();
+  let k=0;
+  for(let i=0;i<1400&&k<N;i++){
+    const a=rnd()*Math.PI*2, rr=185+rnd()*180;
+    const x=-55+Math.cos(a)*rr, z=-20+Math.sin(a)*rr*0.85;
+    let inZone=false;
+    for(const zz of ZONES){if(Math.hypot(x-zz.cx,z-zz.cz)<zz.r+6){inZone=true;break;}}
+    if(inZone||Math.abs(x-(-28))<26&&Math.abs(z)<250)continue;
+    E.set(0,rnd()*Math.PI,0);Q.setFromEuler(E);P.set(x,0.02+rnd()*0.02,z);
+    S.set(12+rnd()*22,1,10+rnd()*18);M.compose(P,Q,S);im.setMatrixAt(k,M);
+    C.setHSL(0.17+rnd()*0.09,0.22+rnd()*0.14,0.075+rnd()*0.05);im.setColorAt(k,C);k++;
   }
-  const g=new THREE.BufferGeometry();
-  g.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));
-  g.setIndex(idx); g.computeVertexNormals();
-  return new THREE.Mesh(g,new THREE.MeshBasicMaterial({color,transparent:opacity<1,opacity}));
+  im.count=k;scene.add(im);
 }
-const riverBed=ribbon(17,0.05,0x232B66,1); scene.add(riverBed);
-const riverCore=ribbon(11,0.12,0x4A5CD0,0.95); scene.add(riverCore);
-const riverSheen=ribbon(5,0.2,0x8B99FF,0.5); scene.add(riverSheen);
-const embankE=ribbon(23,0.02,0x2A2318,1); scene.add(embankE); // riverfront promenade base
+
+/* ---------- Sabarmati + ghat walls + bridges + lakes ---------- */
+const riverPath=new THREE.CatmullRomCurve3([
+  new THREE.Vector3(-2,0,-300),new THREE.Vector3(-8,0,-190),new THREE.Vector3(-16,0,-100),
+  new THREE.Vector3(-26,0,-30),new THREE.Vector3(-30,0,30),new THREE.Vector3(-36,0,100),
+  new THREE.Vector3(-28,0,180),new THREE.Vector3(-18,0,260)]);
+function riverX(zq){let best=riverPath.getPoint(0),bd=1e9;
+  for(let i=0;i<=80;i++){const p=riverPath.getPoint(i/80);const d=Math.abs(p.z-zq);if(d<bd){bd=d;best=p;}}return best.x;}
+function ribbon(offset,width,y,color,opacity,lambert){
+  const N=110,pos=[],idx=[];
+  for(let i=0;i<=N;i++){const t=i/N,p=riverPath.getPoint(t),tan=riverPath.getTangent(t);
+    const nx=-tan.z,nz=tan.x;
+    pos.push(p.x+nx*(offset+width/2),y,p.z+nz*(offset+width/2),p.x+nx*(offset-width/2),y,p.z+nz*(offset-width/2));
+    if(i<N){const a=i*2;idx.push(a,a+1,a+2,a+1,a+3,a+2);}}
+  const g=new THREE.BufferGeometry();
+  g.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));g.setIndex(idx);g.computeVertexNormals();
+  const mat=lambert?new THREE.MeshLambertMaterial({color}):new THREE.MeshBasicMaterial({color,transparent:opacity<1,opacity});
+  return new THREE.Mesh(g,mat);
+}
+scene.add(ribbon(0,26,0.02,0x2A2318,1,true));          // promenade base
+scene.add(ribbon(0,17,0.05,0x232B66,1));               // river bed
+const riverCore=ribbon(0,11,0.12,0x4A5CD0,0.95);scene.add(riverCore);
+const riverSheen=ribbon(0,4.5,0.2,0x8B99FF,0.5);scene.add(riverSheen);
+/* ghat walls, both banks */
+function wall(off){const w=ribbon(off,1.1,0,0x57492F,1,true);w.scale.y=1;w.position.y=0.02;
+  const cap=ribbon(off,1.1,0.9,0x6B5C45,1,true);scene.add(w,cap);
+  const face=ribbon(off,0.2,0.45,0x4A3F2E,1,true);face.scale.set(1,1,1);scene.add(face);}
+wall(9.8);wall(-9.8);
 /* bridges */
 const bridgeMat=new THREE.MeshLambertMaterial({color:0x4A4234});
-const bridgeZ=[-118,-64,-18,16,58,104];
-bridgeZ.forEach((z,i)=>{
-  const x=riverX(z);
-  const b=new THREE.Mesh(new THREE.BoxGeometry(30,0.9,i===2?4.2:3.2),bridgeMat);
-  b.position.set(x,1.1,z); scene.add(b);
-  if(i===2){ // Atal pedestrian bridge nod — saffron arch
-    const arc=new THREE.Mesh(new THREE.TorusGeometry(13,0.35,8,40,Math.PI),
-      new THREE.MeshBasicMaterial({color:0xE8A33D}));
-    arc.position.set(x,1,z); scene.add(arc);
-  }
+[-150,-118,-64,-18,16,58,104,150].forEach((zq,i)=>{
+  const x=riverX(zq);
+  const b=new THREE.Mesh(new THREE.BoxGeometry(32,0.9,i===3?4.2:3.2),bridgeMat);
+  b.position.set(x,1.15,zq);scene.add(b);
+  if(i===3){const arc=new THREE.Mesh(new THREE.TorusGeometry(14,0.35,8,40,Math.PI),
+    new THREE.MeshBasicMaterial({color:0xE8A33D}));arc.position.set(x,1,zq);scene.add(arc);}
 });
-
-/* lakes: Kankaria (SE) + Vastrapur */
-function lake(x,z,r,seg){
-  const m=new THREE.Mesh(new THREE.CircleGeometry(r,seg),
-    new THREE.MeshBasicMaterial({color:0x35408F}));
-  m.rotation.x=-Math.PI/2; m.position.set(x,0.08,z); scene.add(m);
-}
-lake(52,52,13,8);      // Kankaria — polygonal
-lake(-124,26,7,32);    // Vastrapur
-
-/* Motera stadium hint — big oval */
-const stad=new THREE.Mesh(new THREE.CylinderGeometry(9,10.5,3.4,32,1,true),
+function lake(x,z,r,seg){const rim=new THREE.Mesh(new THREE.RingGeometry(r,r+1.4,seg),
+    new THREE.MeshLambertMaterial({color:0x57492F}));rim.rotation.x=-Math.PI/2;rim.position.set(x,0.09,z);
+  const m=new THREE.Mesh(new THREE.CircleGeometry(r,seg),new THREE.MeshBasicMaterial({color:0x35408F}));
+  m.rotation.x=-Math.PI/2;m.position.set(x,0.08,z);scene.add(m,rim);}
+lake(52,52,13,8);lake(-124,26,7,32);lake(48,-56,4,24);      /* Kankaria, Vastrapur, Chandola-ish pond */
+const stad=new THREE.Mesh(new THREE.CylinderGeometry(9,10.5,3.6,32,1,true),
   new THREE.MeshLambertMaterial({color:0x6B5F49,side:THREE.DoubleSide}));
-stad.scale.x=1.35; stad.position.set(6,1.7,-150); scene.add(stad);
+stad.scale.x=1.35;stad.position.set(6,1.8,-152);scene.add(stad);
 
-/* ---------- buildings (instanced) ---------- */
-let seed=20260706; const rnd=()=>{seed=(seed*1664525+1013904223)>>>0;return seed/4294967296;};
-const instances=[];
-function nearRiver(x,z){return Math.abs(x-riverX(z))<15;}
-function inLake(x,z){return (Math.hypot(x-52,z-52)<15)||(Math.hypot(x+124,z-26)<9)||(Math.hypot(x-6,z+150)<14);}
-ZONES.forEach((zone,zi)=>{
-  const n=Math.floor(zone.r*zone.r*zone.density*(zone.big?0.045:0.14));
-  for(let i=0;i<n;i++){
-    let x,z;
-    if(zone.shape==='rect'){x=zone.cx+(rnd()-0.5)*zone.r*2.1; z=zone.cz+(rnd()-0.5)*zone.r*1.7;}
-    else {const a=rnd()*Math.PI*2, rr=Math.sqrt(rnd())*zone.r; x=zone.cx+Math.cos(a)*rr; z=zone.cz+Math.sin(a)*rr;}
+/* ---------- building textures (windows) ---------- */
+function facadeTex(emissive){
+  const c=document.createElement('canvas');c.width=64;c.height=128;const g=c.getContext('2d');
+  g.fillStyle=emissive?'#000000':'#CFC5B0';g.fillRect(0,0,64,128);
+  for(let y=6;y<122;y+=12)for(let x=5;x<60;x+=10){
+    if(emissive){if(Math.random()<0.42){g.fillStyle=Math.random()<0.8?'#FFB86B':'#BFD0FF';g.fillRect(x,y,6,7);}}
+    else{g.fillStyle='rgba(40,36,30,0.75)';g.fillRect(x,y,6,7);}
+  }
+  const t=new THREE.CanvasTexture(c);return t;
+}
+const aptMat=new THREE.MeshLambertMaterial({map:facadeTex(false),emissiveMap:facadeTex(true),
+  emissive:new THREE.Color(0xFFC98A),emissiveIntensity:0});
+const towerMat=new THREE.MeshLambertMaterial({map:facadeTex(false),emissiveMap:facadeTex(true),
+  emissive:new THREE.Color(0xBFD0FF),emissiveIntensity:0});
+
+/* ---------- generate buildings per district ---------- */
+const houses=[],roofs=[],apts=[],towers=[],sheds=[],shedRoofs=[],tanks=[],trees=[];
+function inLake(x,z){return Math.hypot(x-52,z-52)<15||Math.hypot(x+124,z-26)<9||Math.hypot(x-6,z+152)<14||Math.hypot(x-48,z+56)<6;}
+function nearRiver(x,z){return Math.abs(x-riverX(z))<15&&z>-300&&z<260;}
+ZONES.forEach((zn,zi)=>{
+  const kind=zn.kind;
+  const step=kind==='pol'?3.2:kind==='vil'?4.0:kind==='apt'?4.8:kind==='tower'?8.5:11.5;
+  const a0=rnd()*Math.PI/2, ca=Math.cos(a0), sa=Math.sin(a0);
+  const rx=zn.shape==='rect'?zn.r*1.15:zn.r, rz=zn.shape==='rect'?zn.r*0.85:zn.r;
+  for(let u=-rx;u<=rx;u+=step)for(let v=-rz;v<=rz;v+=step){
+    if(zn.shape==='circ'&&(u*u)/(rx*rx)+(v*v)/(rz*rz)>1)continue;
+    if(rnd()>zn.dens)continue;
+    const x=zn.cx+u*ca-v*sa+(rnd()-0.5)*step*0.4;
+    const z=zn.cz+u*sa+v*ca+(rnd()-0.5)*step*0.4;
     if(nearRiver(x,z)||inLake(x,z))continue;
-    const h=zone.hmin+Math.pow(rnd(),zone.tall?1.6:2.2)*(zone.hmax-zone.hmin);
-    const w=zone.big?4+rnd()*7:1.6+rnd()*2.4, d=zone.big?4+rnd()*7:1.6+rnd()*2.4;
-    instances.push({x,z,h,w,d,rot:(rnd()-0.5)*0.5,zone:zi});
+    const rot=a0+(rnd()-0.5)*0.12;
+    let k=kind;if(kind==='mix')k=rnd()<0.55?'pol':'apt';
+    if(k==='pol'||k==='vil'){
+      const h=k==='pol'?1.5+rnd()*rnd()*3:1.2+rnd()*1.5;
+      const w=2.1+rnd()*1.2,d=2.1+rnd()*1.2;
+      houses.push({x,z,rot,w,d,h,tint:new THREE.Color().setHSL(0.075+rnd()*0.03,0.28+rnd()*0.12,0.42+rnd()*0.14)});
+      roofs.push({x,z,rot,w:w*0.92,d:d*0.92,y:h,h:0.8+rnd()*0.6,
+        tint:new THREE.Color().setHSL(0.03+rnd()*0.02,0.42,0.24+rnd()*0.08)});
+      if(rnd()<0.07)trees.push({x:x+(rnd()-0.5)*3,z:z+(rnd()-0.5)*3});
+    }else if(k==='apt'){
+      const h=3.5+Math.pow(rnd(),1.8)*(zn.hmax-3.5),w=2.8+rnd()*1.4,d=2.8+rnd()*1.4;
+      apts.push({x,z,rot,w,d,h,tint:new THREE.Color().setHSL(0.09+rnd()*0.03,0.14+rnd()*0.1,0.5+rnd()*0.16)});
+      if(rnd()<0.45)tanks.push({x:x+(rnd()-0.5)*w*0.4,z:z+(rnd()-0.5)*d*0.4,y:h,rot});
+      if(rnd()<0.16)trees.push({x:x+(rnd()-0.5)*6,z:z+(rnd()-0.5)*6});
+    }else if(k==='tower'){
+      const h=9+Math.pow(rnd(),1.5)*(zn.hmax-9),w=4+rnd()*2.2,d=4+rnd()*2.2;
+      towers.push({x,z,rot,w,d,h,tint:new THREE.Color().setHSL(0.58+rnd()*0.06,0.06+rnd()*0.06,0.5+rnd()*0.14)});
+      if(rnd()<0.3)tanks.push({x,z,y:h,rot});
+      if(rnd()<0.2)trees.push({x:x+(rnd()-0.5)*8,z:z+(rnd()-0.5)*8});
+    }else{ /* industrial */
+      const h=2.4+rnd()*2,w=6+rnd()*7,d=8+rnd()*9;
+      sheds.push({x,z,rot,w,d,h,tint:new THREE.Color().setHSL(0.1,0.08+rnd()*0.06,0.36+rnd()*0.1)});
+      shedRoofs.push({x,z,rot,w,d,y:h,h:1+rnd()*0.8,
+        tint:new THREE.Color().setHSL(0.55+rnd()*0.1,0.1,0.3+rnd()*0.1)});
+    }
   }
+  /* village outskirt trees */
+  if(kind==='vil')for(let i=0;i<zn.r*1.4;i++){
+    const a=rnd()*Math.PI*2,rr=zn.r*(0.6+rnd()*0.55);
+    trees.push({x:zn.cx+Math.cos(a)*rr,z:zn.cz+Math.sin(a)*rr});}
 });
-const bGeo=new THREE.BoxGeometry(1,1,1); bGeo.translate(0,0.5,0);
-const bMat=new THREE.MeshLambertMaterial({color:0xffffff});
-const bMesh=new THREE.InstancedMesh(bGeo,bMat,instances.length);
-const M=new THREE.Matrix4(),Q=new THREE.Quaternion(),E=new THREE.Euler(),S=new THREE.Vector3(),P=new THREE.Vector3();
-const baseColors=[];
-instances.forEach((b,i)=>{
-  E.set(0,b.rot,0); Q.setFromEuler(E); P.set(b.x,0,b.z); S.set(b.w,b.h,b.d);
-  M.compose(P,Q,S); bMesh.setMatrixAt(i,M);
-  const c=new THREE.Color(ZONES[b.zone].tint);
-  c.offsetHSL(0,(rnd()-0.5)*0.04,(rnd()-0.5)*0.10);
-  baseColors.push(c.clone()); bMesh.setColorAt(i,c);
-});
-bMesh.instanceMatrix.needsUpdate=true; scene.add(bMesh);
+/* riverfront tree lines */
+for(let i=0;i<=90;i++){const t=i/90,p=riverPath.getPoint(t),tan=riverPath.getTangent(t);
+  const nx=-tan.z,nz=tan.x;
+  if(rnd()<0.75)trees.push({x:p.x+nx*12.5,z:p.z+nz*12.5});
+  if(rnd()<0.75)trees.push({x:p.x-nx*12.5,z:p.z-nz*12.5});}
 
-/* ---------- roads + traffic particles ---------- */
+/* ---------- bake instanced meshes ---------- */
+const M4=new THREE.Matrix4(),QT=new THREE.Quaternion(),EU=new THREE.Euler(),SC=new THREE.Vector3(),PS=new THREE.Vector3();
+function bake(list,geo,mat,place){
+  const im=new THREE.InstancedMesh(geo,mat,list.length);
+  list.forEach((b,i)=>{place(b);im.setMatrixAt(i,M4);if(b.tint)im.setColorAt(i,b.tint);});
+  if(im.instanceColor)im.instanceColor.needsUpdate=true;
+  scene.add(im);return im;
+}
+const boxG=new THREE.BoxGeometry(1,1,1);boxG.translate(0,0.5,0);
+const houseMesh=bake(houses,boxG,new THREE.MeshLambertMaterial({color:0xffffff}),
+  b=>{EU.set(0,b.rot,0);QT.setFromEuler(EU);PS.set(b.x,0,b.z);SC.set(b.w,b.h,b.d);M4.compose(PS,QT,SC);});
+const roofG=new THREE.ConeGeometry(0.72,1,4);roofG.rotateY(Math.PI/4);roofG.translate(0,0.5,0);
+bake(roofs,roofG,new THREE.MeshLambertMaterial({color:0xffffff}),
+  b=>{EU.set(0,b.rot,0);QT.setFromEuler(EU);PS.set(b.x,b.y,b.z);SC.set(b.w,b.h,b.d);M4.compose(PS,QT,SC);});
+const aptMesh=bake(apts,boxG,aptMat,
+  b=>{EU.set(0,b.rot,0);QT.setFromEuler(EU);PS.set(b.x,0,b.z);SC.set(b.w,b.h,b.d);M4.compose(PS,QT,SC);});
+const towerMesh=bake(towers,boxG,towerMat,
+  b=>{EU.set(0,b.rot,0);QT.setFromEuler(EU);PS.set(b.x,0,b.z);SC.set(b.w,b.h,b.d);M4.compose(PS,QT,SC);});
+bake(sheds,boxG,new THREE.MeshLambertMaterial({color:0xffffff}),
+  b=>{EU.set(0,b.rot,0);QT.setFromEuler(EU);PS.set(b.x,0,b.z);SC.set(b.w,b.h,b.d);M4.compose(PS,QT,SC);});
+const shedRoofG=new THREE.CylinderGeometry(1,1,1,10,1,true,0,Math.PI);shedRoofG.rotateZ(Math.PI/2);shedRoofG.rotateY(Math.PI/2);
+bake(shedRoofs,shedRoofG,new THREE.MeshLambertMaterial({color:0xffffff,side:THREE.DoubleSide}),
+  b=>{EU.set(0,b.rot,0);QT.setFromEuler(EU);PS.set(b.x,b.y,b.z);SC.set(b.w/2,b.h,b.d);M4.compose(PS,QT,SC);});
+const tankG=new THREE.BoxGeometry(1,0.8,1);tankG.translate(0,0.4,0);
+bake(tanks,tankG,new THREE.MeshLambertMaterial({color:0xD8D2C4}),
+  b=>{EU.set(0,b.rot,0);QT.setFromEuler(EU);PS.set(b.x,b.y,b.z);SC.set(1.1,1,1.1);M4.compose(PS,QT,SC);});
+const treeG=new THREE.IcosahedronGeometry(1,0);treeG.translate(0,1,0);
+{const im=new THREE.InstancedMesh(treeG,new THREE.MeshLambertMaterial({color:0xffffff}),trees.length);
+ const C=new THREE.Color();
+ trees.forEach((t,i)=>{EU.set(0,rnd()*Math.PI,0);QT.setFromEuler(EU);PS.set(t.x,0.2,t.z);
+   const s=0.9+rnd()*0.9;SC.set(s*1.2,s,s*1.2);M4.compose(PS,QT,SC);im.setMatrixAt(i,M4);
+   C.setHSL(0.3+rnd()*0.07,0.3,0.10+rnd()*0.06);im.setColorAt(i,C);});
+ im.instanceColor.needsUpdate=true;scene.add(im);}
+/* SCRIPT_A_END */
+/* ---------- road network: named arterials ---------- */
 const ROADS=[
- {pts:[[-46,-220],[-44,-120],[-48,-40],[-50,20],[-52,90],[-46,180]],w:3.5},          // Ashram Rd (west bank)
- {pts:[[-178,-170],[-178,-60],[-176,40],[-180,150]],w:4.5},                          // SG Highway
- {pts:[[-46,-8],[-96,-4],[-126,20],[-150,-6],[-176,-10]],w:3},                       // CG Rd → Drive-In → Thaltej
- {pts:[[12,-2],[52,-16],[96,-40]],w:3},                                              // Relief Rd → Naroda Rd
- {pts:[[12,-2],[30,40],[56,80],[60,120]],w:3},                                       // Kankaria–Maninagar
- {pts:[[-44,-120],[0,-146],[60,-122],[100,-90]],w:3.5},                              // Airport corridor
- {pts:[[-120,-160],[-118,-100],[-90,-40],[-60,60],[-20,140],[40,150],[90,90],[110,0],[98,-62],[60,-122]],w:4}, // ring road arc
+ {id:'ashram-rd',pts:[[-46,-260],[-44,-160],[-46,-80],[-50,-10],[-52,60],[-48,140],[-40,200]],w:3.5,brts:true},
+ {id:'sg-highway',pts:[[-182,-190],[-182,-90],[-180,-10],[-176,60],[-150,104],[-110,128]],w:5},
+ {id:'cg-road',pts:[[-46,-8],[-96,-4],[-126,20],[-152,-6],[-180,-12]],w:3},
+ {id:'naroda-rd',pts:[[12,-2],[52,-18],[88,-40],[100,-76]],w:3.5,brts:true,freight:true},
+ {id:'maninagar-rd',pts:[[12,-2],[32,40],[52,70],[56,110],[52,128]],w:3},
+ {id:'airport-rd',pts:[[-44,-160],[0,-148],[30,-134],[66,-122]],w:3.5},
+ {id:'gandhinagar-hwy',pts:[[-56,-300],[-58,-240],[-66,-180],[-60,-120],[-46,-80]],w:4.5,freight:true},
+ {id:'sarkhej-sanand',pts:[[-105,128],[-160,124],[-220,120],[-300,118]],w:4.5,freight:true},
+ {id:'ring-132ft',pts:[[-120,-160],[-118,-100],[-90,-40],[-60,60],[-20,140],[40,150],[90,90],[112,10],[100,-76],[66,-122]],w:4,brts:true},
+ {id:'narol-vatva',pts:[[52,128],[95,130],[122,100],[112,66]],w:3,freight:true},
+ {id:'nikol-rd',pts:[[88,2],[128,-8],[138,28]],w:3},
+ {id:'bopal-ghuma',pts:[[-176,60],[-205,55],[-242,92]],w:3},
+ {id:'sindhu-bhavan',pts:[[-182,-40],[-158,-43],[-128,-46],[-100,-46]],w:3},
+ {id:'drive-in-rd',pts:[[-96,-4],[-120,-24],[-150,-40],[-170,-42]],w:3},
+ {id:'university-rd',pts:[[-88,-2],[-80,-30],[-64,-46],[-46,-80]],w:2.6},
+ {id:'prahladnagar',pts:[[-176,60],[-140,62],[-100,62],[-60,60]],w:3},
+ {id:'bopal-ambli',pts:[[-205,55],[-180,28],[-162,8],[-150,-6]],w:2.8},
+ {id:'odhav-rd',pts:[[88,2],[105,-20],[122,-45]],w:3},
+ {id:'sarkhej-narol-hwy',pts:[[-105,128],[-50,142],[0,146],[52,128]],w:4.5,freight:true},
+ {id:'chandkheda-motera',pts:[[-70,-162],[-32,-156],[0,-150]],w:3},
+ {id:'shela-sanand-link',pts:[[-242,92],[-264,104],[-300,118]],w:2.8},
+ {id:'nikol-kathwada',pts:[[128,-8],[150,-40],[165,-75]],w:2.8,freight:true},
+ {id:'vastral-ring',pts:[[138,28],[128,50],[112,66]],w:2.6},
+ {id:'indira-bridge-rd',pts:[[66,-122],[24,-168],[-24,-186],[-58,-192]],w:4,freight:true},
+ {id:'relief-rd',pts:[[-16,4],[12,6],[38,0]],w:2.4},
 ];
-const roadMat=new THREE.MeshBasicMaterial({color:0x0F0C08});
-ROADS.forEach(r=>{
-  for(let i=0;i<r.pts.length-1;i++){
-    const [x1,z1]=r.pts[i],[x2,z2]=r.pts[i+1];
-    const len=Math.hypot(x2-x1,z2-z1);
-    const m=new THREE.Mesh(new THREE.PlaneGeometry(len,r.w),roadMat);
-    m.rotation.x=-Math.PI/2; m.rotation.z=-Math.atan2(z2-z1,x2-x1);
-    m.position.set((x1+x2)/2,0.06,(z1+z2)/2); scene.add(m);
+/* SP ring road, generated */
+{const pts=[];for(let i=0;i<=20;i++){const a=i/20*Math.PI*2;
+  pts.push([-55+Math.cos(a)*240,-15+Math.sin(a)*205]);}ROADS.push({id:'sp-ring',pts,w:5,freight:true});}
+const roadMat=new THREE.MeshLambertMaterial({color:0x0E0B08});
+ROADS.forEach(r=>{for(let i=0;i<r.pts.length-1;i++){
+  const [x1,z1]=r.pts[i],[x2,z2]=r.pts[i+1],len=Math.hypot(x2-x1,z2-z1);
+  const m=new THREE.Mesh(new THREE.PlaneGeometry(len+r.w*0.6,r.w),roadMat);
+  m.rotation.x=-Math.PI/2;m.rotation.z=-Math.atan2(z2-z1,x2-x1);
+  m.position.set((x1+x2)/2,0.06,(z1+z2)/2);scene.add(m);}});
+/* extra river crossing for Indira Bridge corridor */
+{const x=riverX(-188);const b=new THREE.Mesh(new THREE.BoxGeometry(30,0.9,3.4),bridgeMat);
+ b.position.set(x,1.15,-188);scene.add(b);}
+
+/* ---------- minor street grids inside every district (merged mesh) ---------- */
+{
+  const pos=[],idx=[];let vi=0;
+  function strip(x1,z1,x2,z2,w){
+    const dx=x2-x1,dz=z2-z1,len=Math.hypot(dx,dz)||1,nx=-dz/len*w/2,nz=dx/len*w/2;
+    pos.push(x1+nx,0.045,z1+nz, x1-nx,0.045,z1-nz, x2+nx,0.045,z2+nz, x2-nx,0.045,z2-nz);
+    idx.push(vi,vi+1,vi+2, vi+1,vi+3,vi+2);vi+=4;
   }
+  let s2=99; const r2=()=>{s2=(s2*1664525+1013904223)>>>0;return s2/4294967296;};
+  ZONES.forEach(zn=>{
+    const a0=r2()*Math.PI/2,ca=Math.cos(a0),sa=Math.sin(a0);
+    const gap=zn.kind==='pol'?7:zn.kind==='vil'?9:zn.kind==='ind'?16:10;
+    for(let axis=0;axis<2;axis++){
+      for(let o=-zn.r+gap/2;o<zn.r;o+=gap){
+        const half=Math.sqrt(Math.max(0,zn.r*zn.r-o*o));
+        const SEG=8;
+        for(let s=-half;s<half;s+=SEG){
+          const e=Math.min(s+SEG,half);
+          let u1,v1,u2,v2;
+          if(axis===0){u1=o;v1=s;u2=o;v2=e;}else{u1=s;v1=o;u2=e;v2=o;}
+          const x1=zn.cx+u1*ca-v1*sa,z1=zn.cz+u1*sa+v1*ca;
+          const x2=zn.cx+u2*ca-v2*sa,z2=zn.cz+u2*sa+v2*ca;
+          const mx=(x1+x2)/2,mz=(z1+z2)/2;
+          if(nearRiver(mx,mz)||inLake(mx,mz))continue;
+          strip(x1,z1,x2,z2,1.1);
+        }
+      }
+    }
+  });
+  const g=new THREE.BufferGeometry();
+  g.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));
+  g.setIndex(idx);g.computeVertexNormals();
+  scene.add(new THREE.Mesh(g,new THREE.MeshLambertMaterial({color:0x141009})));
+}
+function roadPoint(road,t){const segs=road.pts.length-1,ft=Math.min(Math.max(t,0),0.99999)*segs,
+  si=Math.floor(ft),lt=ft-si,[x1,z1]=road.pts[si],[x2,z2]=road.pts[si+1];
+  return [x1+(x2-x1)*lt,z1+(z2-z1)*lt,x2-x1,z2-z1];}
+
+/* ---------- vehicles: 6 classes with swappable styles ---------- */
+const trafficGrp=new THREE.Group();scene.add(trafficGrp);
+const vehMats=[];
+function vmat(){const m=new THREE.MeshLambertMaterial({color:0xffffff,
+  emissive:new THREE.Color(0xFFE9C4),emissiveIntensity:0});vehMats.push(m);return m;}
+function bx(l,h,w,ox,oy){const g=new THREE.BoxGeometry(l,h,w);g.translate(ox||0,oy||h/2,0);return g;}
+/* presets: each returns {body, top} geometries (length along X, +X = forward) */
+const PRESETS={
+ car:{
+  'Hatchback':()=>({body:bx(1.7,0.55,0.92,0,0.32),top:bx(0.95,0.42,0.84,-0.18,0.76)}),
+  'Sedan':()=>({body:bx(2.1,0.55,0.95,0,0.33),top:bx(1.05,0.42,0.85,-0.08,0.79)}),
+  'SUV':()=>({body:bx(2.1,0.8,1.05,0,0.45),top:bx(1.35,0.5,0.95,-0.1,1.05)}),
+ },
+ bike:{
+  'Motorcycle':()=>({body:bx(1.35,0.3,0.26,0,0.36),top:bx(0.34,0.55,0.3,0.04,0.78)}),
+  'Sport':()=>({body:bx(1.55,0.34,0.3,0,0.34),top:bx(0.36,0.48,0.3,-0.1,0.7)}),
+ },
+ scooter:{
+  'Classic':()=>({body:bx(1.05,0.5,0.34,0,0.3),top:bx(0.34,0.55,0.32,-0.05,0.75)}),
+  'Sporty':()=>({body:bx(1.2,0.44,0.32,0,0.3),top:bx(0.34,0.52,0.3,-0.08,0.72)}),
+ },
+ auto:{
+  'CNG Auto':()=>({body:bx(1.5,0.75,0.95,0,0.42),top:bx(1.45,0.3,1.0,0,0.96)}),
+  'E-Rickshaw':()=>({body:bx(1.7,0.7,0.95,0,0.4),top:bx(1.65,0.26,1.0,0,0.9)}),
+ },
+ bus:{
+  'BRTS 12m':()=>({body:bx(5.4,1.7,1.15,0,0.9),top:bx(5.0,0.18,1.05,0,1.85)}),
+  'Midi Bus':()=>({body:bx(4.0,1.55,1.1,0,0.82),top:bx(3.6,0.16,1.0,0,1.66)}),
+ },
+ truck:{
+  'LCV (407)':()=>({body:bx(1.0,0.9,1.0,1.35,0.55),top:bx(2.4,1.15,1.05,-0.4,0.72)}),
+  'Heavy 22ft':()=>({body:bx(1.2,1.1,1.1,1.9,0.65),top:bx(3.5,1.5,1.1,-0.5,0.9)}),
+ },
+};
+const PALETTES={
+ car:[0xE8E4DA,0xC9C4B8,0x8F8C85,0x3A3A3C,0x7A2E2A,0x33507A,0xB0AB9E],
+ bike:[0x2B2B2E,0x7A2E2A,0x33507A,0x3E3E44],
+ scooter:[0xC9C4B8,0x8F3A56,0x35508F,0x2B2B2E,0xD9A03F],
+ auto:[0x2E5F3A],
+ bus:[0xB03A2E],
+ truck:[0xC9C4B8,0xD9A03F,0x7A2E2A,0x33507A],
+};
+const SWATCHES=['#E8E4DA','#C9C4B8','#3A3A3C','#7A2E2A','#33507A','#2E5F3A','#D9A03F','#8F3A56'];
+const SHIRTS=[0xB05A3A,0x3A6FB0,0xD8CFBB,0x5E8F5A,0x8F5AA0,0xC7A23A];
+/* class registry */
+const CLASSES={
+ car:    {label:'Cars',n:210,preset:'Sedan',color:'mixed',topColor:0x24242A,topMode:'fixed',speed:[0.010,0.021],roads:'all'},
+ bike:   {label:'Bikes',n:200,preset:'Motorcycle',color:'mixed',topMode:'shirts',speed:[0.014,0.028],roads:'all'},
+ scooter:{label:'Scooters',n:150,preset:'Classic',color:'mixed',topMode:'shirts',speed:[0.011,0.019],roads:'all'},
+ auto:   {label:'Auto Rickshaws',n:150,preset:'CNG Auto',color:'#2E5F3A',topColor:0xE8C43D,topMode:'pick',topPick:'#E8C43D',speed:[0.009,0.018],roads:'all'},
+ bus:    {label:'Buses (BRTS/AMTS)',n:26,preset:'BRTS 12m',color:'mixed',topColor:0xEDE4D3,topMode:'fixed',speed:[0.007,0.011],roads:'brts'},
+ truck:  {label:'Trucks',n:64,preset:'LCV (407)',color:'mixed',topMode:'pick',topPick:'#C9C4B8',speed:[0.006,0.009],roads:'freight'},
+};
+CLASSES.bus.palette=[0xB03A2E,0xB03A2E,0x35508F]; /* Janmarg red-heavy mix */
+const brtsRoads=ROADS.filter(r=>r.brts),freightRoads=ROADS.filter(r=>r.freight);
+function roadsFor(k){return k.roads==='brts'?brtsRoads:k.roads==='freight'?freightRoads:ROADS;}
+let vseed=777;const vr=()=>{vseed=(vseed*1664525+1013904223)>>>0;return vseed/4294967296;};
+Object.entries(CLASSES).forEach(([key,k])=>{
+  const p=PRESETS[key][k.preset]();
+  k.bodyMesh=new THREE.InstancedMesh(p.body,vmat(),k.n);
+  k.topMesh=new THREE.InstancedMesh(p.top,vmat(),k.n);
+  [k.bodyMesh,k.topMesh].forEach(m=>{m.instanceMatrix.setUsage(THREE.DynamicDrawUsage);trafficGrp.add(m);});
+  const rf=roadsFor(k);
+  k.fleet=[];
+  for(let i=0;i<k.n;i++)k.fleet.push({road:rf[Math.floor(vr()*rf.length)],t:vr(),
+    speed:(k.speed[0]+vr()*(k.speed[1]-k.speed[0]))*(vr()>0.5?1:-1),lane:0.8+vr()*0.5});
+  applyClassColors(key);
 });
-/* particles */
-const CARS=560, carPos=new Float32Array(CARS*3), cars=[];
-for(let i=0;i<CARS;i++){
-  const road=ROADS[Math.floor(rnd()*ROADS.length)];
-  cars.push({road,t:rnd(),speed:(0.012+rnd()*0.02)*(rnd()>0.5?1:-1)});
+function applyClassColors(key){
+  const k=CLASSES[key],C=new THREE.Color(),pal=k.palette||PALETTES[key];
+  for(let i=0;i<k.n;i++){
+    if(k.color==='mixed')C.set(pal[Math.floor(vr()*pal.length)]);else C.set(k.color);
+    k.bodyMesh.setColorAt(i,C);
+    if(k.topMode==='shirts')C.set(SHIRTS[Math.floor(vr()*SHIRTS.length)]);
+    else if(k.topMode==='pick')C.set(k.topPick);
+    else C.set(k.topColor);
+    k.topMesh.setColorAt(i,C);
+  }
+  k.bodyMesh.instanceColor.needsUpdate=true;k.topMesh.instanceColor.needsUpdate=true;
 }
-const carGeo=new THREE.BufferGeometry();
-carGeo.setAttribute('position',new THREE.BufferAttribute(carPos,3));
-const carMat=new THREE.PointsMaterial({color:0xFFD9A0,size:1.7,transparent:true,opacity:0.95,sizeAttenuation:true});
-const carPts=new THREE.Points(carGeo,carMat); scene.add(carPts);
-function roadPoint(road,t){
-  const segs=road.pts.length-1, ft=Math.min(Math.max(t,0),0.9999)*segs, si=Math.floor(ft), lt=ft-si;
-  const [x1,z1]=road.pts[si],[x2,z2]=road.pts[si+1];
-  return [x1+(x2-x1)*lt, z1+(z2-z1)*lt];
+function applyClassPreset(key){
+  const k=CLASSES[key],p=PRESETS[key][k.preset]();
+  k.bodyMesh.geometry.dispose();k.topMesh.geometry.dispose();
+  k.bodyMesh.geometry=p.body;k.topMesh.geometry=p.top;
+}
+const dummy=new THREE.Object3D();
+function driveFleet(k,dt,visN){
+  const fleet=k.fleet,meshes=k.imageOn?[k.imgMesh]:[k.bodyMesh,k.topMesh];
+  for(let i=0;i<fleet.length;i++){const v=fleet[i];
+    v.t+=v.speed*dt;if(v.t>1)v.t-=1;if(v.t<0)v.t+=1;
+    if(i>=visN){dummy.position.set(0,-80,0);dummy.rotation.y=0;dummy.updateMatrix();
+      meshes.forEach(m=>m.setMatrixAt(i,dummy.matrix));continue;}
+    const [x,z,dx,dz]=roadPoint(v.road,v.t),len=Math.hypot(dx,dz)||1;
+    const s=Math.sign(v.speed),nx=-dz/len,nz=dx/len;
+    dummy.position.set(x+nx*v.lane*s,0.06,z+nz*v.lane*s);
+    dummy.rotation.y=-Math.atan2(dz*s,dx*s);dummy.updateMatrix();
+    meshes.forEach(m=>m.setMatrixAt(i,dummy.matrix));}
+  meshes.forEach(m=>m.instanceMatrix.needsUpdate=true);
+}
+const TOTAL_VEH=Object.values(CLASSES).reduce((s,k)=>s+k.n,0);
+
+/* ---------- custom image avatars (upright crossed-quad sprites) ---------- */
+const SPRITE_SIZE={car:[2.3,1.3],bike:[1.6,1.3],scooter:[1.4,1.3],auto:[1.8,1.5],bus:[5.4,2.4],truck:[3.8,2.4]};
+function spriteGeo(w,h){
+  const pos=[],uv=[],idx=[];let vi=0;
+  [0,Math.PI/2].forEach(rY=>{
+    const c=Math.cos(rY),s=Math.sin(rY);
+    [[-w/2,0],[w/2,0],[-w/2,h],[w/2,h]].forEach(([x,y])=>pos.push(x*c,y,-x*s));
+    uv.push(0,0,1,0,0,1,1,1);
+    idx.push(vi,vi+1,vi+2, vi+1,vi+3,vi+2);vi+=4;
+  });
+  const g=new THREE.BufferGeometry();
+  g.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));
+  g.setAttribute('uv',new THREE.Float32BufferAttribute(uv,2));
+  g.setIndex(idx);return g;
+}
+function setClassImage(key,texture){
+  const k=CLASSES[key];
+  if(!k.imgMesh){
+    const [w,h]=SPRITE_SIZE[key];
+    k.imgMat=new THREE.MeshBasicMaterial({transparent:true,alphaTest:0.08,side:THREE.DoubleSide});
+    k.imgMesh=new THREE.InstancedMesh(spriteGeo(w,h),k.imgMat,k.n);
+    k.imgMesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
+    trafficGrp.add(k.imgMesh);
+  }
+  if(k.imgMat.map)k.imgMat.map.dispose();
+  k.imgMat.map=texture;k.imgMat.needsUpdate=true;
+  k.imageOn=true;
+  k.bodyMesh.visible=false;k.topMesh.visible=false;k.imgMesh.visible=true;
+}
+function clearClassImage(key){
+  const k=CLASSES[key];k.imageOn=false;
+  if(k.imgMesh)k.imgMesh.visible=false;
+  k.bodyMesh.visible=true;k.topMesh.visible=true;
 }
 
-/* ---------- metro lines (elevated) ---------- */
-function metroLine(points,color){
-  const g=new THREE.BufferGeometry().setFromPoints(points.map(p=>new THREE.Vector3(p[0],4.5,p[1])));
+/* ---------- vehicle garage (settings) ---------- */
+{
+  const body=$('#s-body');
+  Object.entries(CLASSES).forEach(([key,k])=>{
+    const sec=document.createElement('div');sec.className='veh-section';
+    const hasTopPick=k.topMode==='pick';
+    sec.innerHTML=`<h4>${k.label}<small>${k.n} on road</small></h4>
+      <div class="opt-row"><label>Style</label>${Object.keys(PRESETS[key]).map(p=>
+        `<div class="preset ${p===k.preset?'on':''}" data-cls="${key}" data-p="${p}">${p}</div>`).join('')}</div>
+      <div class="opt-row"><label>Body</label>
+        <div class="swatch mixed ${k.color==='mixed'?'on':''}" data-cls="${key}" data-c="mixed" title="Mixed palette"></div>
+        ${SWATCHES.map(c=>`<div class="swatch ${k.color===c?'on':''}" style="background:${c}" data-cls="${key}" data-c="${c}"></div>`).join('')}</div>
+      ${hasTopPick?`<div class="opt-row"><label>${key==='auto'?'Roof':'Cargo'}</label>
+        ${SWATCHES.map(c=>`<div class="swatch ${k.topPick===c?'on':''}" style="background:${c}" data-cls="${key}" data-t="${c}"></div>`).join('')}</div>`:''}
+      <div class="opt-row"><label>Image</label>
+        <label class="preset">Upload…<input type="file" accept="image/*" hidden class="img-in" data-cls="${key}"></label>
+        <div class="preset img-clear" data-clr="${key}" style="display:none">Remove image</div>
+      </div>`;
+    body.appendChild(sec);
+  });
+  const note=document.createElement('div');note.className='s-note';
+  note.textContent='Changes apply live to every vehicle of that type across the whole region. For uploads, a side-view PNG with transparent background looks best — it replaces the 3D model with your artwork. Settings last for this session (artifact pages can\u2019t save to disk).';
+  body.appendChild(note);
+  body.addEventListener('change',e=>{
+    const t=e.target;if(!t.classList.contains('img-in')||!t.files||!t.files[0])return;
+    const key=t.dataset.cls,url=URL.createObjectURL(t.files[0]);
+    new THREE.TextureLoader().load(url,tex=>{
+      tex.encoding=THREE.sRGBEncoding;
+      setClassImage(key,tex);
+      const row=t.closest('.opt-row');row.querySelector('.img-clear').style.display='';
+      URL.revokeObjectURL(url);
+    });
+    t.value='';
+  });
+  body.addEventListener('click',e=>{
+    const t=e.target;if(!t.dataset)return;
+    if(t.dataset.clr){clearClassImage(t.dataset.clr);t.style.display='none';return;}
+    const key=t.dataset.cls;if(!key)return;const k=CLASSES[key];
+    if(t.dataset.p){k.preset=t.dataset.p;applyClassPreset(key);
+      t.parentElement.querySelectorAll('.preset').forEach(x=>x.classList.toggle('on',x===t));}
+    else if(t.dataset.c){k.color=t.dataset.c;applyClassColors(key);
+      t.parentElement.querySelectorAll('.swatch').forEach(x=>x.classList.toggle('on',x===t));}
+    else if(t.dataset.t){k.topPick=t.dataset.t;applyClassColors(key);
+      t.parentElement.querySelectorAll('.swatch').forEach(x=>x.classList.toggle('on',x===t));}
+  });
+  const ov=$('#settings-overlay');
+  $('#gear').addEventListener('click',()=>ov.classList.add('open'));
+  $('#s-close').addEventListener('click',()=>ov.classList.remove('open'));
+  ov.addEventListener('click',e=>{if(e.target===ov)ov.classList.remove('open');});
+  addEventListener('keydown',e=>{if(e.key==='Escape')ov.classList.remove('open');});
+}
+
+/* ---------- metro ---------- */
+function metroLine(points,color){const g=new THREE.BufferGeometry().setFromPoints(points.map(p=>new THREE.Vector3(p[0],4.5,p[1])));
   const l=new THREE.Line(g,new THREE.LineBasicMaterial({color,transparent:true,opacity:0.9}));
-  const g2=l.clone(); g2.material=new THREE.LineBasicMaterial({color,transparent:true,opacity:0.25});
-  g2.position.y=-0.5; const grp=new THREE.Group(); grp.add(l,g2); scene.add(grp); return grp;
-}
-const metroEW=metroLine([[128,14],[70,4],[20,0],[-30,4],[-80,2],[-130,0],[-172,-4]],0xE8A33D); // Vastral↔Thaltej
-const metroNS=metroLine([[2,-152],[-14,-100],[-38,-40],[-44,10],[-48,80],[-40,140]],0x6C7CEF); // Motera↔APMC
-const metroGrp=[metroEW,metroNS];
+  const g2=new THREE.Line(g.clone(),new THREE.LineBasicMaterial({color,transparent:true,opacity:0.25}));
+  g2.position.y=-0.6;const grp=new THREE.Group();grp.add(l,g2);scene.add(grp);return grp;}
+const metroGrp=[
+ metroLine([[138,28],[70,4],[20,0],[-30,4],[-80,2],[-130,0],[-176,-6]],0xE8A33D),
+ metroLine([[2,-152],[-14,-100],[-38,-40],[-44,10],[-48,80],[-40,140]],0x6C7CEF)];
 
-/* ---------- AQI columns layer ---------- */
+/* ---------- AQI + grid layers ---------- */
 function aqiColor(a){return a<=100?0x8FB765:a<=130?0xD9A03F:0xD9553F;}
 const aqiGrp=new THREE.Group();
 ZONES.forEach(z=>{
-  const m=new THREE.Mesh(new THREE.CylinderGeometry(z.r*0.55,z.r*0.55,z.aqi/6,24,1,true),
+  const m=new THREE.Mesh(new THREE.CylinderGeometry(z.r*0.55,z.r*0.55,z.aqi/6,20,1,true),
     new THREE.MeshBasicMaterial({color:aqiColor(z.aqi),transparent:true,opacity:0.13,side:THREE.DoubleSide,depthWrite:false}));
   m.position.set(z.cx,z.aqi/12,z.cz);
-  const cap=new THREE.Mesh(new THREE.CircleGeometry(z.r*0.55,24),
+  const cap=new THREE.Mesh(new THREE.CircleGeometry(z.r*0.55,20),
     new THREE.MeshBasicMaterial({color:aqiColor(z.aqi),transparent:true,opacity:0.3,depthWrite:false}));
-  cap.rotation.x=-Math.PI/2; cap.position.set(z.cx,z.aqi/6,z.cz);
-  aqiGrp.add(m,cap);
-});
-aqiGrp.visible=false; scene.add(aqiGrp);
+  cap.rotation.x=-Math.PI/2;cap.position.set(z.cx,z.aqi/6,z.cz);aqiGrp.add(m,cap);});
+aqiGrp.visible=false;scene.add(aqiGrp);
+const gridGrp=new THREE.Group();
+ZONES.forEach(z=>{const t=Math.min(1,(z.grid-38)/180);
+  const m=new THREE.Mesh(new THREE.CircleGeometry(z.r*0.6,24),
+    new THREE.MeshBasicMaterial({color:new THREE.Color().setHSL(0.06-t*0.06,0.85,0.4),transparent:true,opacity:0.10+t*0.3,depthWrite:false}));
+  m.rotation.x=-Math.PI/2;m.position.set(z.cx,0.25,z.cz);gridGrp.add(m);});
+gridGrp.visible=false;scene.add(gridGrp);
 
-/* ---------- pick disks + labels ---------- */
+/* ---------- picking + labels ---------- */
 const pickGrp=new THREE.Group();
-ZONES.forEach((z,i)=>{
-  const m=new THREE.Mesh(new THREE.CircleGeometry(z.r,24),
-    new THREE.MeshBasicMaterial({visible:false}));
-  m.rotation.x=-Math.PI/2; m.position.set(z.cx,0.3,z.cz); m.userData.zi=i; pickGrp.add(m);
-});
+ZONES.forEach((z,i)=>{const m=new THREE.Mesh(new THREE.CircleGeometry(z.r,20),new THREE.MeshBasicMaterial({visible:false}));
+  m.rotation.x=-Math.PI/2;m.position.set(z.cx,0.31,z.cz);m.userData.zi=i;pickGrp.add(m);});
 scene.add(pickGrp);
 const labelWrap=$('#labels');
-const labelEls=ZONES.map(z=>{
-  const d=document.createElement('div');
+const labelEls=ZONES.map(z=>{const d=document.createElement('div');
   d.textContent=z.name.split('·')[0].trim();
   d.style.cssText='position:absolute;font-family:JetBrains Mono,monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#B8AB94;text-shadow:0 1px 4px #000;transform:translate(-50%,-50%);white-space:nowrap';
-  labelWrap.appendChild(d); return d;
-});
-let labelsOn=true;
-const V=new THREE.Vector3();
-function updateLabels(){
-  ZONES.forEach((z,i)=>{
-    const el=labelEls[i];
-    if(!labelsOn){el.style.display='none';return;}
-    V.set(z.cx,2,z.cz).project(camera);
-    if(V.z>1){el.style.display='none';return;}
-    el.style.display='block';
-    el.style.left=((V.x*0.5+0.5)*innerWidth)+'px';
-    el.style.top =((-V.y*0.5+0.5)*innerHeight)+'px';
-    el.style.opacity=ctrl.radius>430?0:Math.min(1,(430-ctrl.radius)/120);
-  });
-}
-/* ---------- input: orbit / zoom / pan ---------- */
-const el=renderer.domElement;
-let drag=null,lastX=0,lastY=0,pinch=0,moved=0;
-el.addEventListener('contextmenu',e=>e.preventDefault());
-el.addEventListener('pointerdown',e=>{drag=e.button===2?'pan':'orbit';lastX=e.clientX;lastY=e.clientY;moved=0;el.setPointerCapture(e.pointerId);});
-el.addEventListener('pointerup',e=>{if(moved<6)pick(e.clientX,e.clientY);drag=null;});
-el.addEventListener('pointermove',e=>{
-  hover(e.clientX,e.clientY);
-  if(!drag)return;
-  const dx=e.clientX-lastX,dy=e.clientY-lastY; lastX=e.clientX;lastY=e.clientY; moved+=Math.abs(dx)+Math.abs(dy);
-  if(drag==='orbit'){ctrl.theta-=dx*0.005;ctrl.phi=Math.min(Math.max(ctrl.phi-dy*0.004,0.12),1.35);}
-  else{const s=ctrl.radius*0.0011;
-    const fx=Math.sin(ctrl.theta),fz=Math.cos(ctrl.theta);
-    ctrl.target.x-=(dx*fz - dy*fx)*s; ctrl.target.z+=(dx*fx + dy*fz)*s;}
+  labelWrap.appendChild(d);return d;});
+let labelsOn=true;const V=new THREE.Vector3();
+function updateLabels(){ZONES.forEach((z,i)=>{const el=labelEls[i];
+  if(!labelsOn||ctrl.radius<110){el.style.display='none';return;}
+  V.set(z.cx,2,z.cz).project(camera);
+  if(V.z>1){el.style.display='none';return;}
+  el.style.display='block';
+  el.style.left=((V.x*0.5+0.5)*innerWidth)+'px';el.style.top=((-V.y*0.5+0.5)*innerHeight)+'px';
+  el.style.opacity=ctrl.radius>780?0:Math.min(1,(780-ctrl.radius)/200);});}
+
+/* ---------- input: orbit / pan-slide with inertia ---------- */
+const el=renderer.domElement;let drag=null,lastX=0,lastY=0,pinch=0,moved=0;
+let panMode=false;
+const inertia={active:false,mode:'pan',vx:0,vy:0};
+function applyDrag(mode,dx,dy){
+  if(mode==='orbit'){ctrl.theta-=dx*0.005;ctrl.phi=Math.min(Math.max(ctrl.phi-dy*0.004,0.12),1.4);}
+  else{const s=ctrl.radius*0.0011,fx=Math.sin(ctrl.theta),fz=Math.cos(ctrl.theta);
+    ctrl.target.x-=(dx*fz-dy*fx)*s;ctrl.target.z+=(dx*fx+dy*fz)*s;
+    ctrl.target.x=Math.min(Math.max(ctrl.target.x,-420),320);
+    ctrl.target.z=Math.min(Math.max(ctrl.target.z,-380),320);}
   applyCam();
-});
-el.addEventListener('wheel',e=>{e.preventDefault();ctrl.radius=Math.min(Math.max(ctrl.radius*(1+e.deltaY*0.0011),70),650);applyCam();},{passive:false});
-el.addEventListener('touchmove',e=>{
-  if(e.touches.length===2){
-    const d=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);
-    if(pinch)ctrl.radius=Math.min(Math.max(ctrl.radius*pinch/d,70),650),applyCam();
-    pinch=d;e.preventDefault();
-  }},{passive:false});
+}
+el.addEventListener('contextmenu',e=>e.preventDefault());
+el.addEventListener('pointerdown',e=>{
+  drag=e.button===2?'pan':(panMode?'pan':'orbit');
+  lastX=e.clientX;lastY=e.clientY;moved=0;inertia.active=false;inertia.vx=inertia.vy=0;
+  el.setPointerCapture(e.pointerId);});
+el.addEventListener('pointerup',e=>{
+  if(moved<6){pick(e.clientX,e.clientY);drag=null;return;}
+  if(Math.hypot(inertia.vx,inertia.vy)>2){inertia.active=true;inertia.mode=drag;}
+  drag=null;});
+el.addEventListener('pointermove',e=>{hover(e.clientX,e.clientY);
+  if(!drag)return;const dx=e.clientX-lastX,dy=e.clientY-lastY;lastX=e.clientX;lastY=e.clientY;
+  moved+=Math.abs(dx)+Math.abs(dy);
+  inertia.vx=inertia.vx*0.55+dx*0.45;inertia.vy=inertia.vy*0.55+dy*0.45;
+  applyDrag(drag,dx,dy);});
+function stepInertia(){
+  if(!inertia.active)return;
+  applyDrag(inertia.mode,inertia.vx,inertia.vy);
+  inertia.vx*=0.93;inertia.vy*=0.93;
+  if(Math.hypot(inertia.vx,inertia.vy)<0.15)inertia.active=false;
+}
+function setZoom(r){ctrl.radius=Math.min(Math.max(r,45),950);applyCam();}
+el.addEventListener('wheel',e=>{e.preventDefault();setZoom(ctrl.radius*(1+e.deltaY*0.0011));},{passive:false});
+el.addEventListener('touchmove',e=>{if(e.touches.length===2){
+  const d=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);
+  if(pinch)setZoom(ctrl.radius*pinch/d);pinch=d;e.preventDefault();}},{passive:false});
 el.addEventListener('touchend',()=>pinch=0);
+$('#z-in').addEventListener('click',()=>setZoom(ctrl.radius*0.75));
+$('#z-out').addEventListener('click',()=>setZoom(ctrl.radius*1.33));
+$('#z-home').addEventListener('click',()=>{inertia.active=false;
+  ctrl.target.set(-40,0,-10);ctrl.theta=Math.PI*0.28;ctrl.phi=Math.PI*0.33;setZoom(430);});
+const panBtn=document.createElement('button');
+panBtn.id='z-pan';panBtn.title='Toggle slide / orbit drag';panBtn.setAttribute('aria-label','Toggle slide mode');
+panBtn.textContent='✋';panBtn.style.fontSize='14px';
+$('#zoomui').insertBefore(panBtn,$('#z-home'));
+panBtn.addEventListener('click',()=>{panMode=!panMode;
+  panBtn.style.borderColor=panMode?'var(--saffron)':'var(--line)';
+  panBtn.style.color=panMode?'var(--saffron)':'var(--bone)';});
+addEventListener('keydown',e=>{if(document.activeElement.tagName==='INPUT')return;
+  if(e.key==='+'||e.key==='=')setZoom(ctrl.radius*0.8);
+  if(e.key==='-')setZoom(ctrl.radius*1.25);
+  const st=22;
+  if(e.key==='ArrowLeft')applyDrag('pan',st,0);
+  if(e.key==='ArrowRight')applyDrag('pan',-st,0);
+  if(e.key==='ArrowUp')applyDrag('pan',0,st);
+  if(e.key==='ArrowDown')applyDrag('pan',0,-st);});
 
-/* ---------- hover & pick ---------- */
+/* ---------- hover / pick ---------- */
 const ray=new THREE.Raycaster(),mouse=new THREE.Vector2(),tip=$('#tooltip');
-function castZone(x,y){
-  mouse.set((x/innerWidth)*2-1,-(y/innerHeight)*2+1);
-  ray.setFromCamera(mouse,camera);
-  const hit=ray.intersectObjects(pickGrp.children)[0];
-  return hit?hit.object.userData.zi:null;
-}
-function hover(x,y){
-  const zi=castZone(x,y);
+function castZone(x,y){mouse.set((x/innerWidth)*2-1,-(y/innerHeight)*2+1);
+  ray.setFromCamera(mouse,camera);const hit=ray.intersectObjects(pickGrp.children)[0];
+  return hit?hit.object.userData.zi:null;}
+function hover(x,y){const zi=castZone(x,y);
   if(zi===null){tip.style.display='none';el.style.cursor='grab';return;}
-  const z=ZONES[zi]; el.style.cursor='pointer';
-  tip.style.display='block'; tip.style.left=(x+14)+'px'; tip.style.top=(y+14)+'px';
-  tip.innerHTML=`<small>${z.type}</small>${z.name} · AQI ${z.aqi}`;
-}
-function pick(x,y){
-  const zi=castZone(x,y); if(zi===null)return;
-  const z=ZONES[zi];
-  $('#zone-empty').style.display='none'; $('#zone-detail').style.display='block';
-  $('#zd-name').textContent=z.name; $('#zd-type').textContent=z.type;
-  const aqiB=`<span class="badge" style="background:${z.aqi<=100?'rgba(143,183,101,.18)':z.aqi<=130?'rgba(217,160,63,.18)':'rgba(217,85,63,.2)'};color:${z.aqi<=100?'#8FB765':z.aqi<=130?'#D9A03F':'#D9553F'}">${z.aqi} ${z.aqi<=100?'MODERATE':z.aqi<=130?'POOR':'VERY POOR'}</span>`;
+  const z=ZONES[zi];el.style.cursor='pointer';
+  tip.style.display='block';tip.style.left=(x+14)+'px';tip.style.top=(y+14)+'px';
+  tip.innerHTML=`<small>${z.type}</small>${z.name} · AQI ${z.aqi}`;}
+function pick(x,y){const zi=castZone(x,y);if(zi===null)return;const z=ZONES[zi];
+  $('#zone-empty').style.display='none';$('#zone-detail').style.display='block';
+  $('#zd-name').textContent=z.name;$('#zd-type').textContent=z.type;
+  const aq=z.aqi,col=aq<=100?'#8FB765':aq<=130?'#D9A03F':'#D9553F',
+    bg=aq<=100?'rgba(143,183,101,.18)':aq<=130?'rgba(217,160,63,.18)':'rgba(217,85,63,.2)',
+    lab=aq<=100?'MODERATE':aq<=130?'POOR':'VERY POOR';
   $('#zd-stats').innerHTML=
-    `<div class="stat-row"><label>Population</label><div class="v">${z.pop}</div></div>
-     <div class="stat-row"><label>Air quality index</label><div class="v">${aqiB}</div></div>
-     <div class="stat-row"><label>Feeder load</label><div class="v">${z.grid} MW</div></div>
-     <div class="stat-row"><label>Traffic saturation</label><div class="v" style="color:${z.traffic>0.8?'#D9553F':z.traffic>0.65?'#D9A03F':'#8FB765'}">${Math.round(z.traffic*100)}%</div></div>
-     <div class="stat-row"><label>Water coverage</label><div class="v">${z.water}</div></div>`;
-  $('#zone-note').textContent=z.note;
-  $('#right').classList.add('open');
-  ctrl.target.set(z.cx,0,z.cz); ctrl.radius=Math.max(150,z.r*4.6); applyCam();
-}
+   `<div class="stat-row"><label>Population</label><div class="v">${z.pop}</div></div>
+    <div class="stat-row"><label>Air quality index</label><div class="v"><span class="badge" style="background:${bg};color:${col}">${aq} ${lab}</span></div></div>
+    <div class="stat-row"><label>Feeder load</label><div class="v">${z.grid} MW</div></div>
+    <div class="stat-row"><label>Traffic saturation</label><div class="v" style="color:${z.traffic>0.8?'#D9553F':z.traffic>0.65?'#D9A03F':'#8FB765'}">${Math.round(z.traffic*100)}%</div></div>
+    <div class="stat-row"><label>Water coverage</label><div class="v">${z.water}</div></div>`;
+  $('#zone-note').textContent=z.note;$('#right').classList.add('open');
+  ctrl.target.set(z.cx,0,z.cz);setZoom(Math.max(120,z.r*4.2));}
 
-/* ---------- layers UI ---------- */
+/* ---------- layers ---------- */
 const layerDefs=[
- {id:'traffic',name:'Traffic flow',sw:'#FFD9A0',on:true, set:v=>carPts.visible=v},
- {id:'aqi',name:'Air quality',sw:'linear-gradient(90deg,#8FB765,#D9A03F,#D9553F)',on:false,set:v=>aqiGrp.visible=v},
- {id:'grid',name:'Grid load heat',sw:'#D9553F',on:false,set:v=>setGridHeat(v)},
- {id:'metro',name:'Metro lines',sw:'#6C7CEF',on:true, set:v=>metroGrp.forEach(g=>g.visible=v)},
- {id:'labels',name:'District labels',sw:'#B8AB94',on:true,set:v=>labelsOn=v},
+ {name:'Traffic (vehicles)',sw:'#FFD9A0',on:true,set:v=>trafficGrp.visible=v},
+ {name:'Air quality',sw:'linear-gradient(90deg,#8FB765,#D9A03F,#D9553F)',on:false,set:v=>aqiGrp.visible=v},
+ {name:'Grid load heat',sw:'#D9553F',on:false,set:v=>gridGrp.visible=v},
+ {name:'Metro lines',sw:'#6C7CEF',on:true,set:v=>metroGrp.forEach(g=>g.visible=v)},
+ {name:'District labels',sw:'#B8AB94',on:true,set:v=>labelsOn=v},
 ];
 const layersEl=$('#layers');
-layerDefs.forEach((L,i)=>{
-  const d=document.createElement('div');
-  d.className='layer'+(L.on?' on':''); d.setAttribute('role','button'); d.tabIndex=0;
+layerDefs.forEach((L,i)=>{const d=document.createElement('div');
+  d.className='layer'+(L.on?' on':'');d.setAttribute('role','button');d.tabIndex=0;
   d.innerHTML=`<div class="sw" style="background:${L.on?L.sw:'transparent'}"></div><div class="name">${L.name}</div><div class="key">${i+1}</div>`;
   const toggle=()=>{L.on=!L.on;d.classList.toggle('on',L.on);d.querySelector('.sw').style.background=L.on?L.sw:'transparent';L.set(L.on);};
   d.addEventListener('click',toggle);
   d.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' ')toggle();});
   addEventListener('keydown',e=>{if(e.key===String(i+1)&&document.activeElement.tagName!=='INPUT')toggle();});
-  layersEl.appendChild(d); L.set(L.on);
-});
-function setGridHeat(on){
-  const c=new THREE.Color();
-  instances.forEach((b,i)=>{
-    if(on){const t=Math.min(1,(ZONES[b.zone].grid-70)/150);
-      c.setRGB(0.28+t*0.72,0.30-t*0.12,0.16); bMesh.setColorAt(i,c);}
-    else bMesh.setColorAt(i,baseColors[i]);
-  });
-  bMesh.instanceColor.needsUpdate=true;
-}
+  layersEl.appendChild(d);L.set(L.on);});
 
 /* ---------- time of day ---------- */
-let tod=18.5;
-const slider=$('#time-slider'),tl=$('#time-label');
-function fmtTod(t){const h=Math.floor(t),m=Math.round((t-h)*60);return String(h).padStart(2,'0')+':'+String(m).padStart(2,'0');}
-function trafficFactor(t){ // peaks 9:30 & 19:00
-  const p1=Math.exp(-Math.pow(t-9.5,2)/6), p2=Math.exp(-Math.pow(t-19,2)/7);
-  return 0.18+0.82*Math.min(1,p1+p2);
-}
-function applyTod(){
-  tl.textContent=fmtTod(tod);
-  const day=Math.max(0,Math.sin((tod-6)/12*Math.PI)); // 0 night → 1 noon
-  sun.intensity=0.15+day*1.05;
-  hemi.intensity=0.28+day*0.5;
+let tod=18.5;const slider=$('#time-slider'),tl=$('#time-label');
+const fmtTod=t=>{const h=Math.floor(t),m=Math.round((t-h)*60);return String(h).padStart(2,'0')+':'+String(m).padStart(2,'0');};
+function trafficFactor(t){const p1=Math.exp(-Math.pow(t-9.5,2)/6),p2=Math.exp(-Math.pow(t-19,2)/7);
+  return 0.18+0.82*Math.min(1,p1+p2);}
+let dayF=1;
+function applyTod(){tl.textContent=fmtTod(tod);
+  const day=Math.max(0,Math.sin((tod-6)/12*Math.PI));dayF=day;
+  sun.intensity=0.15+day*1.05;hemi.intensity=0.26+day*0.5;
   const az=((tod-6)/12)*Math.PI;
   sun.position.set(Math.cos(az)*180,Math.max(20,Math.sin(az)*200),60);
-  scene.fog.color.setHSL(0.09,0.25,0.045+day*0.045);
-  renderer.setClearColor(scene.fog.color);
-  carMat.opacity=0.5+ (1-day)*0.5;
-  riverGlow.intensity=0.35+(1-day)*0.75;
+  scene.fog.color.setHSL(0.09,0.25,0.04+day*0.05);renderer.setClearColor(scene.fog.color);
+  aptMat.emissiveIntensity=(1-day)*0.85;towerMat.emissiveIntensity=(1-day)*1.05;
+  vehMats.forEach(m=>m.emissiveIntensity=(1-day)*0.35);
+  riverGlow.intensity=0.3+(1-day)*0.8;
   const tf=trafficFactor(tod);
   $('#kpi-traffic').textContent=(tf*10).toFixed(1);
-  $('#kpi-grid').innerHTML=Math.round(720+tf*680+day*260)+'<small>MW</small>';
-  $('#kpi-brts').textContent=Math.round(120+tf*180);
-}
+  $('#kpi-grid').innerHTML=Math.round(760+tf*700+day*280)+'<small>MW</small>';
+  $('#kpi-veh').textContent=Math.round(TOTAL_VEH*tf);}
 slider.addEventListener('input',()=>{tod=parseFloat(slider.value);applyTod();});
 applyTod();
 $('#kpi-aqi').textContent=Math.round(ZONES.reduce((s,z)=>s+z.aqi,0)/ZONES.length);
 
-/* ---------- clock (IST) ---------- */
-setInterval(()=>{ $('#clock').innerHTML=new Intl.DateTimeFormat('en-IN',{hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false,timeZone:'Asia/Kolkata'}).format(new Date())+'<small>IST</small>';},1000);
-
-/* ---------- city feed ticker ---------- */
+/* ---------- clock + ticker ---------- */
+setInterval(()=>{$('#clock').innerHTML=new Intl.DateTimeFormat('en-IN',{hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false,timeZone:'Asia/Kolkata'}).format(new Date())+'<small>IST</small>';},1000);
 const FEED=[
- ()=>`<b>AMTS 402</b> diverted at Lal Darwaja — heritage-walk closure until 21:00`,
- ()=>`Naroda GIDC feeder N-4 at <b>${88+Math.floor(Math.random()*9)}%</b> rated load — monitoring`,
+ ()=>`<b>Sanand GIDC</b> shift change 14:00 — Sarkhej-Sanand road westbound heavy for 40 min`,
+ ()=>`Naroda feeder N-4 at <b>${88+Math.floor(Math.random()*9)}%</b> rated load — monitoring`,
  ()=>`Metro EW headway <b>6 min</b> · NS <b>7 min</b> · ridership +4.2% w/w`,
- ()=>`PM2.5 spike cleared at Kalupur node — monsoon inflow from SW`,
- ()=>`Riverfront event permit: <b>west promenade, 19:00–22:00</b> — expect Ellis Bridge slowdown`,
+ ()=>`Vatva CETP inflow at <b>91%</b> capacity — odour complaints logged from Isanpur`,
+ ()=>`Riverfront event: <b>west promenade 19:00–22:00</b> — Ellis Bridge slowdown expected`,
  ()=>`Water SCADA: Gota pressure <b>-8%</b> at morning peak — tanker dispatch queued`,
- ()=>`SG Highway signal retiming live at <b>Pakwan & Thaltej</b> junctions`,
+ ()=>`Adalaj stepwell weekend footfall est. <b>${8+Math.floor(Math.random()*5)}k</b> — parking overflow at Zundal circle`,
  ()=>`BRTS Janmarg corridor speed avg <b>${17+Math.floor(Math.random()*5)} km/h</b>`,
+ ()=>`SP Ring Road incident cleared near <b>Kathwada junction</b> — lanes reopened`,
+ ()=>`Bopal-Ghuma stretch: signal retiming trial live at <b>3 junctions</b>`,
 ];
-let fi=0; const tick=$('#ticker-text');
+let fi=0;const tick=$('#ticker-text');
 function nextFeed(){tick.innerHTML='['+new Intl.DateTimeFormat('en-IN',{hour:'2-digit',minute:'2-digit',hour12:false,timeZone:'Asia/Kolkata'}).format(new Date())+'] '+FEED[fi%FEED.length]();fi++;}
-nextFeed(); setInterval(nextFeed,6500);
+nextFeed();setInterval(nextFeed,6500);
 
-/* ---------- Ask the Twin (Claude) ---------- */
+/* ---------- Ask the Twin ---------- */
 const log=$('#chat-log'),input=$('#chat-input'),send=$('#chat-send');
 function addMsg(cls,html){const d=document.createElement('div');d.className='msg '+cls;d.innerHTML=html;log.appendChild(d);d.scrollIntoView({block:'end'});}
-function cityState(){
-  return {time_of_day:fmtTod(tod),city:'Ahmedabad',note:'simulated demo data',
-    districts:ZONES.map(z=>({name:z.name,type:z.type,population:z.pop,aqi:z.aqi,feeder_load_MW:z.grid,traffic_saturation:z.traffic,water_coverage:z.water,ops_note:z.note}))};
-}
-async function ask(q){
-  if(!q.trim())return;
-  addMsg('user',q); input.value=''; send.disabled=true;
+function cityState(){return{time_of_day:fmtTod(tod),city:'Ahmedabad metro region',note:'simulated demo data',
+  districts:ZONES.map(z=>({name:z.name,type:z.type,population:z.pop,aqi:z.aqi,feeder_load_MW:z.grid,traffic_saturation:z.traffic,water_coverage:z.water,ops_note:z.note}))};}
+async function ask(q){if(!q.trim())return;
+  addMsg('user',q);input.value='';send.disabled=true;
   addMsg('ai','<i style="color:#8D8171">querying twin…</i>');
-  try{
-    const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1000,messages:[{role:'user',
-        content:`You are the operations assistant inside AMDAVAD·TWIN, a digital twin of Ahmedabad. Current twin state (simulated demo data): ${JSON.stringify(cityState())}\n\nAnswer the operator's question concisely (under 120 words), grounded strictly in this state. Plain text only, no markdown headers.\n\nQuestion: ${q}`}]})});
-    const data=await r.json();
-    const text=(data.content||[]).filter(b=>b.type==='text').map(b=>b.text).join('\n').trim();
-    log.lastChild.innerHTML=text?text.replace(/\n/g,'<br>'):'<i>No response — try again.</i>';
-  }catch(e){
-    log.lastChild.innerHTML='<i>Twin assistant unreachable in this environment. All map layers remain live.</i>';
-  }
-  send.disabled=false;
-}
+  try{const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1000,messages:[{role:'user',
+      content:`You are the operations assistant inside AMDAVAD·TWIN, a digital twin of the Ahmedabad metro region including periphery villages. Current twin state (simulated demo data): ${JSON.stringify(cityState())}\n\nAnswer the operator's question concisely (under 120 words), grounded strictly in this state. Plain text only.\n\nQuestion: ${q}`}]})});
+   const data=await r.json();
+   const text=(data.content||[]).filter(b=>b.type==='text').map(b=>b.text).join('\n').trim();
+   log.lastChild.innerHTML=text?text.replace(/\n/g,'<br>'):'<i>No response — try again.</i>';
+  }catch(e){log.lastChild.innerHTML='<i>Twin assistant unreachable in this environment. All map layers remain live.</i>';}
+  send.disabled=false;}
 send.addEventListener('click',()=>ask(input.value));
 input.addEventListener('keydown',e=>{if(e.key==='Enter')ask(input.value);});
 document.querySelectorAll('.chip').forEach(c=>c.addEventListener('click',()=>ask(c.dataset.q)));
-
-/* ---------- mobile panel toggles ---------- */
 $('#tg-left').addEventListener('click',()=>{$('#left').classList.toggle('open');$('#right').classList.remove('open');});
 $('#tg-right').addEventListener('click',()=>{$('#right').classList.toggle('open');$('#left').classList.remove('open');});
 
-/* ---------- resize + loop ---------- */
+/* ---------- loop ---------- */
 addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);});
 const clock3=new THREE.Clock();
 const reduceMotion=matchMedia('(prefers-reduced-motion: reduce)').matches;
-function loop(){
-  requestAnimationFrame(loop);
-  const dt=Math.min(clock3.getDelta(),0.05), t=clock3.elapsedTime;
-  /* traffic */
-  const tf=trafficFactor(tod), visible=Math.floor(CARS*tf);
-  for(let i=0;i<CARS;i++){
-    const c=cars[i];
-    c.t+=c.speed*dt*(reduceMotion?0.3:1);
-    if(c.t>1)c.t-=1; if(c.t<0)c.t+=1;
-    if(i<visible){const [x,z]=roadPoint(c.road,c.t);carPos[i*3]=x;carPos[i*3+1]=0.5;carPos[i*3+2]=z;}
-    else{carPos[i*3+1]=-10;}
+function loop(){requestAnimationFrame(loop);
+  const dt=Math.min(clock3.getDelta(),0.05)*(reduceMotion?0.3:1),t=clock3.elapsedTime;
+  const tf=trafficFactor(tod);
+  if(trafficGrp.visible){
+    Object.values(CLASSES).forEach(k=>driveFleet(k,dt,Math.max(k.roads==='brts'?4:2,Math.floor(k.n*tf))));
   }
-  carGeo.attributes.position.needsUpdate=true;
-  /* river shimmer */
-  if(!reduceMotion){
-    riverSheen.material.opacity=0.35+Math.sin(t*1.4)*0.15;
-    riverCore.material.color.setHSL(0.64,0.62,0.5+Math.sin(t*0.8)*0.04);
-  }
+  stepInertia();
+  if(!reduceMotion){riverSheen.material.opacity=0.35+Math.sin(t*1.4)*0.15;
+    riverCore.material.color.setHSL(0.64,0.62,0.5+Math.sin(t*0.8)*0.04);}
   updateLabels();
-  renderer.render(scene,camera);
-}
+  renderer.render(scene,camera);}
 loop();
 </script>
 </body>
